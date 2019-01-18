@@ -15,4 +15,9 @@
     <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Smart_Binance_API\Smart_Binance_API.csproj" />
+    <ProjectReference Include="..\Smart_Binance_Lib\Smart_Binance_Lib.csproj" />
+  </ItemGroup>
+
 </Project>

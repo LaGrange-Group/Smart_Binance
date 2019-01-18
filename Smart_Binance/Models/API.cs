@@ -12,5 +12,6 @@ namespace Smart_Binance.Models
         public int Id { get; set; }
         public string Key { get; set; }
         public string Secret { get; set; }
+        public string Guid { get; set; }
     }
 }
