@@ -8283,3 +8283,14 @@ input[type="checkbox"]:checked + .slider:before {
     .slider.round:before {
         border-radius: 50%;
     }
+
+.flex > div {
+    flex: 1 0 50%;
+    text-align: center;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.scale {
+   overflow:hidden;
+}
