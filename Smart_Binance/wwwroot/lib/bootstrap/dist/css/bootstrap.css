@@ -8294,3 +8294,22 @@ input[type="checkbox"]:checked + .slider:before {
 .scale {
    overflow:hidden;
 }
+
+.gbtnHollow {
+    background: transparent;
+    height: 38px;
+    line-height: 40px;
+    border: 2px solid black;
+    display: inline-block;
+    float: none;
+    text-align: center;
+    width: 120px;
+    padding: 0px !important;
+    font-size: 14px;
+    color: #fff;
+}
+
+    .gbtnHollow:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.2);
+    }
