@@ -2,17 +2,31 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Smart_Binance.Actions;
+using Smart_Binance.Data;
 using Smart_Binance.Models;
 
 namespace Smart_Binance.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext db;
+        public HomeController(ApplicationDbContext context)
+        {
+            db = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return RedirectToAction("Login", "Identity/Account");
+            }
+            return RedirectToAction("Index", "Dashboard");
         }
 
         public IActionResult About()

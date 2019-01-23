@@ -1,0 +1,218 @@
+﻿@model Smart_Binance.Models.ViewModels.DashboardViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="~/js/Chart/export-data.js"></script>
+<script src="~/js/Chart/exporting.js"></script>
+<script src="~/js/Chart/highcharts.js"></script>
+
+<div class="row" style="padding-top:5%">
+    <div class="col-xs-4" style="padding:0px">
+        <h4 style="color:#cfcfcf">Assets</h4>
+        <hr />
+        <div id="container-assets" style="min-width: 310px; height: 190px; width: 190px; margin: 0 auto; background-color:transparent;"></div>
+    </div>
+    <div class="col-xs-1" style="padding:0px">
+
+    </div>
+    <div class="col-xs-7" style="padding:0px">
+        <h4 style="color:#cfcfcf">Performance</h4>
+        <hr />
+        <div id="container-performance" style="min-width: 310px; height: 200px; width:auto; margin: 0 auto; background-color:transparent"></div>
+    </div>
+</div>
+
+<div class="row" style="padding-top:5%">
+    <div class="col-xs-4" style="border-right:1px solid #cfcfcf; height:400px">
+        <h4 style="color:#cfcfcf">Buy</h4>
+        <hr />
+
+    </div>
+    <div class="col-xs-4" style="border-right:1px solid #cfcfcf; height:400px">
+        <h4 style="color:#cfcfcf">Stop Loss</h4>
+        <hr />
+    </div>
+    <div class="col-xs-4" style="height:400px">
+        <h4 style="color:#cfcfcf">Take Profit</h4>
+        <hr />
+    </div>
+</div>
+
+<div class="row" style="padding-top:5%">
+    <div class="col-xs-12" style="height:400px">
+        <h4 style="color:#cfcfcf">Smart Trades</h4>
+        <hr />
+
+    </div>
+</div>
+
+
+<!-- TradingView Widget BEGIN -->
+<div class="row" style="padding-top:10%">
+    <div class="col-xs-12" style="width:100%">
+        <div class="tradingview-widget-container">
+            <div id="tradingview_e83c3"></div>
+
+            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+            <script type="text/javascript">
+                new TradingView.widget(
+                    {
+                        "width": 980,
+                        "height": 610,
+                        "symbol": "BINANCE:BTCUSDT",
+                        "interval": "D",
+                        "timezone": "Etc/UTC",
+                        "theme": "Light",
+                        "style": "1",
+                        "locale": "en",
+                        "toolbar_bg": "#f1f3f6",
+                        "enable_publishing": false,
+                        "allow_symbol_change": true,
+                        "container_id": "tradingview_e83c3"
+                    }
+                );
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- TradingView Widget END -->
+
+
+
+
+<script>
+    Highcharts.setOptions({
+        colors: ['#c0c689', '#96fffb', '#ffe119', '#911eb4', '#fabebe', '#4363d8', '#bcf60c', '#f58231', '#008080', '#e6beff', '#9a6324', '#fffac8', '#800000', '#aaffc3', '#46f0f0', '#ffd8b1', '#000075', '#808080', '#ffffff', '#000000']
+    });
+    Highcharts.chart('container-assets', {
+        chart: {
+            backgroundColor: null,
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            margin: [0, 0, 0, 0],
+            spacingTop: 0,
+            spacingBottom: 0,
+            spacingLeft: 0,
+            spacingRight: 0
+        },
+        title: {
+            text: ''
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> <br>Amount:{point.amount}</b> <br>Bitcoin Value:{point.bitcoinvalue} <br>USD Value:${point.usdvalue}'
+        },
+        plotOptions: {
+            pie: {
+                size:'100%',
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        exporting: {
+            enabled: false
+        }, credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Percent',
+            colorByPoint: true,
+            data: [
+            @for (int i = 0; i < Model.Balances.Count - 1; i++)
+            {
+                    if (i == 2)
+                    {
+                        <text>
+                        {
+                            name: '@Model.Balances[i].Symbol',
+                            y: @Model.Balances[i].BitcoinValue,
+                            amount: @Model.Balances[i].Amount,
+                            bitcoinvalue: @Model.Balances[i].Amount,
+                            usdvalue: @Model.Balances[i].USDValue,
+                            sliced: true,
+                            selected: true
+                        },
+                        </text>
+                    }else if (i < Model.Balances.Count - 2)
+                    {
+                        <text>
+                        {
+                            name: '@Model.Balances[i].Symbol',
+                            y: @Model.Balances[i].BitcoinValue,
+                            amount: @Model.Balances[i].Amount,
+                            bitcoinvalue: @Model.Balances[i].BitcoinValue,
+                            usdvalue: @Model.Balances[i].USDValue
+                        },
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                        {
+                            name: '@Model.Balances[i].Symbol',
+                            y: @Model.Balances[i].BitcoinValue,
+                            amount: @Model.Balances[i].Amount,
+                            bitcoinvalue: @Model.Balances[i].BitcoinValue,
+                            usdvalue: @Model.Balances[i].USDValue
+                        }]
+                        </text>
+                    }
+
+            }
+        }]
+    });
+</script>
+
+<script>
+    Highcharts.setOptions({
+        colors: ['#7cb5ec', '#434348']
+    });
+    Highcharts.chart('container-performance', {
+        chart: {
+            backgroundColor: null,
+            type: 'line'
+        },
+        title: {
+            text: ''
+        },
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: false
+            }
+        },
+        yAxis: {
+            labels: {
+                format: '{value:.2f}'
+            },
+            title: {
+                enabled: false
+            }
+        },
+        exporting: {
+            enabled: false
+        }, credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'BTC',
+            data: [0.003345, 0.003045, 0.002945, 0.002545, 0.005255]
+        },
+        {
+            name: 'USD',
+            data: [13.82, 12.60, 11.25, 8.60, 19.08]
+        }]
+    });
+</script>

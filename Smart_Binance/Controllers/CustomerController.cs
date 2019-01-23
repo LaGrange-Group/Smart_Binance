@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Smart_Binance.Actions;
 using Smart_Binance.Data;
 using Smart_Binance.Models;
 using Smart_Binance_API;
@@ -22,23 +23,28 @@ namespace Smart_Binance.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(CustomerViewModel customerViewModel)
+        public async Task<IActionResult> Index(CustomerViewModel customerViewModel)
         {
-            Guid g = Guid.NewGuid();
-            API api = new API();
-            api.Key = customerViewModel.API.Key;
-            api.Secret = customerViewModel.API.Secret;
-            api.Guid = g.ToString();
-            db.APIs.Add(api);
-            db.SaveChanges();
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Customer customer = new Customer();
-            customer.Name = customerViewModel.Customer.Name;
-            customer.PhoneNumber = customerViewModel.Customer.PhoneNumber;
-            customer.APIId = db.APIs.Where(a => a.Guid == g.ToString()).Select(a => a.Id).Single();
-            customer.UserId = userId;
-            db.Customers.Add(customer);
-
+            Connection connection = new Connection();
+            bool connected = await connection.Check(customerViewModel.API.Key, customerViewModel.API.Secret);
+            if (connected)
+            {
+                Guid g = Guid.NewGuid();
+                API api = new API();
+                api.Key = customerViewModel.API.Key;
+                api.Secret = customerViewModel.API.Secret;
+                api.Guid = g.ToString();
+                db.APIs.Add(api);
+                await db.SaveChangesAsync();
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Customer customer = new Customer();
+                customer.Name = customerViewModel.Customer.Name;
+                customer.PhoneNumber = customerViewModel.Customer.PhoneNumber;
+                customer.APIId = db.APIs.Where(a => a.Guid == g.ToString()).Select(a => a.Id).Single();
+                customer.UserId = userId;
+                db.Customers.Add(customer);
+                await db.SaveChangesAsync();
+            }
             return View();
         }
     }
