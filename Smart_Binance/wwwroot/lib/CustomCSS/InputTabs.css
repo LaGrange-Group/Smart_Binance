@@ -1,0 +1,47 @@
+﻿body {
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover > h4:active {
+    color: #f5bc00;
+    height: 3.53em;
+}
+
+.nav-tabs > li > a, .nav-tabs > li > a:focus, .nav-tabs > li > a:hover > h4 {
+    color: #bababa;
+    height: 3.53em;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 0px 15px;
+}
+
+#text-color {
+    color: #bababa;
+}
+
+input {
+    color: #bababa;
+}
+
+text {
+    color: #a5a5a5;
+}
+
+#form-lables {
+    color: #a5a5a5;
+}
+
+#input-padd {
+    padding-top: 0.5em;
+}
+
+input, select, textarea {
+    color: #a5a5a5;
+    font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+    textarea:focus, input:focus {
+        color: #a5a5a5;
+        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }

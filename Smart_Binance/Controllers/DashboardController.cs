@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Smart_Binance.Actions;
 using Smart_Binance.Data;
@@ -31,7 +32,14 @@ namespace Smart_Binance.Controllers
             dashboard.Balances = await balances.GetBalanceValues();
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
+            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC" };
+            ViewBag.Markets = new SelectList(Symbols);
             return View(dashboard);
+        }
+
+        public IActionResult GetMyViewComponent(string abcdef)
+        {
+            return ViewComponent("Buy", new { market = abcdef });
         }
     }
 }

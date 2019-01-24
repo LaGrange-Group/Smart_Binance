@@ -6,10 +6,10 @@
 <script src="~/js/Chart/export-data.js"></script>
 <script src="~/js/Chart/exporting.js"></script>
 <script src="~/js/Chart/highcharts.js"></script>
-
+<link href="~/lib/CustomCSS/InputTabs.css" rel="stylesheet" />
 <div class="row" style="padding-top:5%">
     <div class="col-xs-4" style="padding:0px">
-        <h4 style="color:#cfcfcf">Assets</h4>
+        <h4 style="color:#bababa">Assets</h4>
         <hr />
         <div id="container-assets" style="min-width: 310px; height: 190px; width: 190px; margin: 0 auto; background-color:transparent;"></div>
     </div>
@@ -17,7 +17,7 @@
 
     </div>
     <div class="col-xs-7" style="padding:0px">
-        <h4 style="color:#cfcfcf">Performance</h4>
+        <h4 style="color:#bababa">Performance</h4>
         <hr />
         <div id="container-performance" style="min-width: 310px; height: 200px; width:auto; margin: 0 auto; background-color:transparent"></div>
     </div>
@@ -25,13 +25,17 @@
 
 <div class="row" style="padding-top:5%">
     <div class="col-xs-4">
-        <div style="border:1px solid #cfcfcf; border-radius:1em; width:100%; height:3em;">
+        <div style="border:1px solid #bababa; border-radius:1em; width:100%; height:3em;">
             <div class="row">
-                <div class="col-xs-6">
-                    <h4 style="color:#cfcfcf; float:left; padding-left:1em">Trading Pair</h4>
+                <div class="col-xs-5">
+                    <h4 style="color:#bababa; float:left; padding-left:1em">Trading&nbsp;Pair</h4>
                 </div>
-                <div class="col-xs-6">
-
+                <div class="col-xs-7">
+                    <div class="form-group" style="padding-right:0.5em; padding-top:0.2em">
+                        <select asp-for="Symbol" class="form-control" asp-items="ViewBag.Markets" id="MarketName" >
+                            <option>----Select Market----</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,89 +44,32 @@
 
     </div>
 </div>
-<style>
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover > h4:active {
-        color:#f5bc00;
-        height:3.53em;
-    }
-    .nav-tabs > li > a, .nav-tabs > li > a:focus, .nav-tabs > li > a:hover > h4 {
-        color: #cfcfcf;
-        height: 3.53em;
-    }
-    .nav > li > a {
-        position: relative;
-        display: block;
-        padding: 0px 15px;
-    }
-    #text-color {
-        color: #cfcfcf;
-    }
-    input {
-        color: #cfcfcf;
-    }
-    text {
-        color: #a5a5a5;
-    }
-    #form-lables {
-        color: #a5a5a5;
-    }
-    #input-padd{
-        padding-top:0.5em;
-    }
-    input, select, textarea {
-        color: #a5a5a5;
-        font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
 
-        textarea:focus, input:focus {
-            color: #a5a5a5;
-            font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-</style>
 
 <div class="row" style="padding-top:2%">
-    <div class="col-xs-4" style="border-right:1px solid #cfcfcf; height:400px">
-        @*<h4 style="color:#cfcfcf">Buy</h4>
-        <hr />*@
+    <div class="col-xs-4" style="border-right:1px solid #bababa; height:400px">
+        @*<h4 style="color:#bababa">Buy</h4>
+            <hr />*@
         <ul class="nav nav-tabs" style="height:3.53em">
             <li class="active"><a data-toggle="tab" href="#buy"><h4>Buy</h4></a></li>
             <li><a data-toggle="tab" href="#sell"><h4>Sell</h4></a></li>
         </ul>
         <div class="tab-content">
             <div id="buy" class="tab-pane fade in active" style="padding-top:1em">
-                <form action="CreateBuy">
-                    <div id="input-padd">
-                        <h4 id="form-lables" style="font-size:15px">Units</h4>
-                            <center>
-                                <input class="form-control" type="text" placeholder="0.000" />
-                            </center>
-                    </div>
-                    <div id="input-padd">
-                        <h4 id="form-lables" style="font-size:15px">Price</h4>
-                            <center>
-                                <input class="form-control" type="text" placeholder="0.000" />
-                            </center>
-                    </div>
-                    <div id="input-padd">
-                        <h4 id="form-lables" style="font-size:15px">Total</h4>
-
-                        <center>
-                            <input class="form-control" type="text" placeholder="0.000" />
-                        </center>
-
-                    </div>
-                </form>
+                <div id="BuyContainer">
+                    @await Component.InvokeAsync("Buy");
+                </div>
             </div>
             <div id="sell" class="tab-pane fade in"></div>
         </div>
 
     </div>
-    <div class="col-xs-4" style="border-right:1px solid #cfcfcf; height:400px">
-        <h4 style="color:#cfcfcf">Stop Loss</h4>
+    <div class="col-xs-4" style="border-right:1px solid #bababa; height:400px">
+        <h4 style="color:#bababa">Stop Loss</h4>
         <hr />
     </div>
     <div class="col-xs-4" style="height:400px">
-        <h4 style="color:#cfcfcf">Take Profit</h4>
+        <h4 style="color:#bababa">Take Profit</h4>
         <hr />
     </div>
 </div>
@@ -135,10 +82,11 @@
         padding: 0.001em;
         padding-bottom: 2em;
         background-color: transparent;
-        width:4em;
-        height:4em;
-        border:none;
+        width: 4em;
+        height: 4em;
+        border: none;
     }
+
         .chart-btn:hover, .chart-btn:focus {
             background-image: url("https://i.imgur.com/hMJCG4J.png");
         }
@@ -181,7 +129,7 @@
 
 <div class="row" style="padding-top:5%">
     <div class="col-xs-12" style="height:400px">
-        <h4 style="color:#cfcfcf">Smart Trades</h4>
+        <h4 style="color:#bababa">Smart Trades</h4>
         <hr />
 
     </div>
@@ -189,8 +137,6 @@
 
 
 <!-- TradingView Widget BEGIN -->
-
-
 <!-- TradingView Widget END -->
 
 
