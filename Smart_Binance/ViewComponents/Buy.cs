@@ -26,6 +26,7 @@ namespace Smart_Binance.ViewComponents
                     Amount = 0.000m,
                     BaseAmount = 0.000m
                  };
+                token.PercentType = "#button-basepercent-25";
                 return View(token);
             }
             else

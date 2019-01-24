@@ -11,5 +11,8 @@ namespace Smart_Binance.Models.ViewModels
         public decimal LastPrice { get; set; }
         public decimal BaseAmount { get; set; }
         public decimal Amount { get; set; }
+        public decimal PercentBaseAmount { get; set; }
+        public string BuyType { get; set; }
+        public string PercentType { get; set; }
     }
 }

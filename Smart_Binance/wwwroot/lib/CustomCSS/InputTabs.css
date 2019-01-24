@@ -45,3 +45,53 @@ input, select, textarea {
         color: #a5a5a5;
         font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
+
+#button-basepercent-10{
+    line-height:10px;
+    width:4em;
+    border:1px solid black;
+    height:2em;
+    background-color:white;
+    color:black;
+}
+#button-basepercent-25 {
+    line-height: 10px;
+    width: 4em;
+    border: 1px solid black;
+    height: 2em;
+    background-color: white;
+    color: black;
+}
+#button-basepercent-50 {
+    line-height: 10px;
+    width: 4em;
+    border: 1px solid black;
+    height: 2em;
+    background-color: white;
+    color: black;
+}
+#button-basepercent-100 {
+    line-height: 10px;
+    width: 4em;
+    border: 1px solid black;
+    height: 2em;
+    background-color: white;
+    color: black;
+}
+
+#button-basepercent.active {
+
+    color: #f5bc00;
+}
+
+.btn-secondary.active {
+    color: #f5bc00;
+}
+
+.btn-secondary {
+    color: black;
+}
+
+.percTypeBtn{
+
+}

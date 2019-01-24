@@ -3,6 +3,16 @@
     ViewData["Title"] = "Default";
 }
 <link href="~/lib/CustomCSS/InputTabs.css" rel="stylesheet" />
+<script>
+    var percentType = '@Model.PercentType';
+
+    $(function () {
+        $('.percTypeBtn').click(function () {
+            //Process button click event
+            alert(this.id);
+        });
+    })
+</script>
 <div>
     <form action="CreateBuy">
         <div id="input-padd">
@@ -19,10 +29,21 @@
         </div>
         <div id="input-padd">
             <h4 id="form-lables" style="font-size:15px">Total</h4>
-
             <center>
                 <input class="form-control" type="text" placeholder="0.000" value="@Model.BaseAmount" />
             </center>
         </div>
+        <div style="padding-top:1em">
+            <center>
+             
+                <div class="btn-group" role="group" id="PercentTypeGroup" data-toggle="button" aria-label="Basic example">
+                    <button id="button-basepercent-10" type="button" class="btn btn-secondary percTypeBtn">10%</button>
+                    <button id="button-basepercent-25" type="button" class="btn btn-secondary percTypeBtn">25%</button>
+                    <button id="button-basepercent-50" type="button" class="btn btn-secondary percTypeBtn">50%</button>
+                    <button id="button-basepercent-100" type="button" class="btn btn-secondary percTypeBtn">100%</button>
+                </div>
+            </center>
+        </div>
     </form>
 </div>
+
