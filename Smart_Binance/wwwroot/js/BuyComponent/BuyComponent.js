@@ -4,5 +4,5 @@
 
 $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
-
 });
+

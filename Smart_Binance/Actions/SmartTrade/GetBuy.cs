@@ -22,7 +22,8 @@ namespace Smart_Binance.Actions.SmartTrade
                 var baseBalance = await client.GetAccountInfoAsync();
                 if (baseBalance.Success)
                 {
-                    viewModel.BaseAmount = (baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single() * amountPercent);
+                    viewModel.BaseTotal = baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single();
+                    viewModel.BaseAmount = viewModel.BaseTotal * amountPercent;
                     var currentPrice = await client.Get24HPriceAsync(market);
                     if (currentPrice.Success)
                     {
