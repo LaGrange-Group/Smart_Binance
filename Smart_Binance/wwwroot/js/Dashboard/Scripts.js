@@ -1,12 +1,18 @@
 ﻿var container = $("#BuyContainer");  //quoteProcedureComponentContainer
 var refreshComponent = function () {
-
-    $.get("/Dashboard/GetMyViewComponent", { abcdef: $("#MarketName").val() }, function (data) { container.html(data); });
+    var percentBase = '';
+    $('#PercentTypeGroup .active').each(function () {
+        percentBase = $(this).attr('id');
+    });
+    $.get("/Dashboard/GetMyViewComponent", { marketPass: $("#MarketName").val(), percentTypePass: percentBase }, function (data) { container.html(data); });
 };
 $(function () {
     $("#MarketName").on('change', function () {
         refreshComponent();
-        $(percentType).addClass('active');
+        
     });
 })
 
+$(function () {
+    $('#button-basepercent-25').addClass('active');
+})

@@ -15,8 +15,9 @@ namespace Smart_Binance.ViewComponents
 
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string market = null)
+        public async Task<IViewComponentResult> InvokeAsync(string market = null, string percentType = "button-basepercent-25")
         {
+
             TokenViewModel token;
             if (market == null)
             {
@@ -24,15 +25,16 @@ namespace Smart_Binance.ViewComponents
                 {
                     LastPrice = 0.000m,
                     Amount = 0.000m,
-                    BaseAmount = 0.000m
-                 };
-                token.PercentType = "#button-basepercent-25";
+                    BaseAmount = 0.000m,
+                    PercentType = percentType
+                };
                 return View(token);
             }
             else
             {
                 GetBuy getBuy = new GetBuy();
-                token = await getBuy.Info(market);
+                token = await getBuy.Info(market, getBuy.AmountPercent(percentType));
+                token.PercentType = "#" + percentType;
                 return View(token);
             }
         }

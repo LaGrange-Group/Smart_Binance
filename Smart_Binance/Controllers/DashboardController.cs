@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Binance.Net.Objects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -37,9 +38,9 @@ namespace Smart_Binance.Controllers
             return View(dashboard);
         }
 
-        public IActionResult GetMyViewComponent(string abcdef)
+        public IActionResult GetMyViewComponent(string marketPass, string percentTypePass = "button-basepercent-25")
         {
-            return ViewComponent("Buy", new { market = abcdef });
+            return ViewComponent("Buy", new { market = marketPass, percentType = percentTypePass });
         }
     }
 }

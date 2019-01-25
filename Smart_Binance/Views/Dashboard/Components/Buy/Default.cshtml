@@ -5,14 +5,11 @@
 <link href="~/lib/CustomCSS/InputTabs.css" rel="stylesheet" />
 <script>
     var percentType = '@Model.PercentType';
-
-    $(function () {
-        $('.percTypeBtn').click(function () {
-            //Process button click event
-            alert(this.id);
-        });
-    })
 </script>
+<script src="~/js/BuyComponent/BuyComponent.js"></script>
+<style>
+
+</style>
 <div>
     <form action="CreateBuy">
         <div id="input-padd">
@@ -37,10 +34,10 @@
             <center>
              
                 <div class="btn-group" role="group" id="PercentTypeGroup" data-toggle="button" aria-label="Basic example">
-                    <button id="button-basepercent-10" type="button" class="btn btn-secondary percTypeBtn">10%</button>
-                    <button id="button-basepercent-25" type="button" class="btn btn-secondary percTypeBtn">25%</button>
-                    <button id="button-basepercent-50" type="button" class="btn btn-secondary percTypeBtn">50%</button>
-                    <button id="button-basepercent-100" type="button" class="btn btn-secondary percTypeBtn">100%</button>
+                    <button id="button-basepercent-10" type="button" class="btn percTypeBtn">10%</button>
+                    <button id="button-basepercent-25" type="button" class="btn percTypeBtn">25%</button>
+                    <button id="button-basepercent-50" type="button" class="btn percTypeBtn">50%</button>
+                    <button id="button-basepercent-100" type="button" class="btn percTypeBtn">100%</button>
                 </div>
             </center>
         </div>

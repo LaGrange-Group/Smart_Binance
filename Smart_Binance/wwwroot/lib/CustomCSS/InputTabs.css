@@ -52,7 +52,7 @@ input, select, textarea {
     border:1px solid black;
     height:2em;
     background-color:white;
-    color:black;
+
 }
 #button-basepercent-25 {
     line-height: 10px;
@@ -60,7 +60,7 @@ input, select, textarea {
     border: 1px solid black;
     height: 2em;
     background-color: white;
-    color: black;
+
 }
 #button-basepercent-50 {
     line-height: 10px;
@@ -68,7 +68,7 @@ input, select, textarea {
     border: 1px solid black;
     height: 2em;
     background-color: white;
-    color: black;
+
 }
 #button-basepercent-100 {
     line-height: 10px;
@@ -76,22 +76,21 @@ input, select, textarea {
     border: 1px solid black;
     height: 2em;
     background-color: white;
-    color: black;
+
 }
-
-#button-basepercent.active {
-
-    color: #f5bc00;
+#button-basepercent-10.active {
+    background-color: rgb(245,188,0,0.7);
+    color: white;
 }
-
-.btn-secondary.active {
-    color: #f5bc00;
+#button-basepercent-25.active {
+    background-color: rgb(245,188,0,0.7);
+    color: white;
 }
-
-.btn-secondary {
-    color: black;
+#button-basepercent-50.active {
+    background-color: rgb(245,188,0,0.7);
+    color: white;
 }
-
-.percTypeBtn{
-
+#button-basepercent-100.active {
+    background-color: rgb(245,188,0,0.7);
+    color: white;
 }

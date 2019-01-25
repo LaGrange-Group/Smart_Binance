@@ -57,7 +57,7 @@
         <div class="tab-content">
             <div id="buy" class="tab-pane fade in active" style="padding-top:1em">
                 <div id="BuyContainer">
-                    @await Component.InvokeAsync("Buy");
+                    @await Component.InvokeAsync("Buy")
                 </div>
             </div>
             <div id="sell" class="tab-pane fade in"></div>
@@ -190,7 +190,7 @@
             data: [
             @for (int i = 0; i < Model.Balances.Count - 1; i++)
             {
-                    if (i == 2)
+                    if (i == 0)
                     {
                         <text>
                         {

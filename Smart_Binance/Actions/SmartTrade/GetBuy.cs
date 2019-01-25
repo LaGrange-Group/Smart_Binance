@@ -3,29 +3,64 @@ using Smart_Binance.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Smart_Binance.Actions.SmartTrade
 {
     public class GetBuy
     {
-        public async Task<TokenViewModel> Info(string market, decimal baseAmount = 1.0m)
+        public async Task<TokenViewModel> Info(string market, decimal amountPercent)
         {
+            
             TokenViewModel viewModel = new TokenViewModel();
+            viewModel.BaseType = BaseType(market);
+
+            
             using (var client = new BinanceClient())
             {
-                var currentPrice = await client.Get24HPriceAsync(market);
-                if (currentPrice.Success)
+                var baseBalance = await client.GetAccountInfoAsync();
+                if (baseBalance.Success)
                 {
-                    CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
-                    viewModel.Name = market;
-                    viewModel.LastPrice = currentPrice.Data.LastPrice;
-                    viewModel.BaseAmount = baseAmount;
-                    viewModel.Amount = decimal.Round(baseAmount / viewModel.LastPrice, await amountDecimal.OrderBookDecimal(market));
-                    return viewModel;
+                    viewModel.BaseAmount = (baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single() * amountPercent);
+                    var currentPrice = await client.Get24HPriceAsync(market);
+                    if (currentPrice.Success)
+                    {
+                        CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
+                        viewModel.Name = market;
+                        viewModel.LastPrice = currentPrice.Data.LastPrice;
+                        viewModel.Amount = decimal.Round(viewModel.BaseAmount / viewModel.LastPrice, await amountDecimal.OrderBookDecimal(market));
+                        return viewModel;
+                    }
                 }
             }
             return null;
+        }
+
+        public decimal AmountPercent(string type)
+        {
+            switch (type)
+            {
+                case "button-basepercent-10":
+                    return 0.01m;
+                case "button-basepercent-25":
+                    return 0.025m;
+                case "button-basepercent-50":
+                    return 0.05m;
+                default:
+                    return 1m;
+            }
+        }
+
+        private string BaseType(string market)
+        {
+            string end = market.Substring(market.Length - 4);
+            end = end.Contains("BNB") ? "BNB" : end;
+            end = end.Contains("BTC") ? "BTC" : end;
+            end = end.Contains("USDT") ? "USDT" : end;
+            end = end.Contains("ETH") ? "ETH" : end;
+            end = end.Contains("XRP") ? "XRP" : end;
+            return end;
         }
     }
 }
