@@ -6,6 +6,8 @@
 <script>
     var percentType = '@Model.PercentType';
     var baseTotal = '@Model.BaseTotal';
+    var lastPrice = '@Model.LastPrice';
+    var amount = '@Model.Amount';
 </script>
 <script src="~/js/BuyComponent/BuyComponent.js"></script>
 <style>
@@ -16,7 +18,7 @@
         <div id="input-padd">
             <h4 id="form-lables" style="font-size:15px">Units</h4>
             <center>
-                <input class="form-control" type="text" placeholder="0.000" value="@Model.Amount" />
+                <input class="form-control" id="amount" type="text" placeholder="0.000" value="@Model.Amount" />
             </center>
         </div>
         <div id="input-padd">
@@ -28,17 +30,17 @@
         <div id="input-padd">
             <h4 id="form-lables" style="font-size:15px">Total</h4>
             <center>
-                <input class="form-control" type="text" placeholder="0.000" value="@Model.BaseAmount" />
+                <input class="form-control" id="basetotal" type="text" placeholder="0.000" value="@Model.BaseAmount" />
             </center>
         </div>
         <div style="padding-top:1em">
             <center>
              
                 <div class="btn-group" role="group" id="PercentTypeGroup" data-toggle="button" aria-label="Basic example">
-                    <button id="button-basepercent-10" type="button" class="btn percTypeBtn">10%</button>
-                    <button id="button-basepercent-25" type="button" class="btn percTypeBtn">25%</button>
-                    <button id="button-basepercent-50" type="button" class="btn percTypeBtn">50%</button>
-                    <button id="button-basepercent-100" type="button" class="btn percTypeBtn">100%</button>
+                    <button id="button-basepercent-10" type="button" class="btn percTypeBtn" value="0.01">10%</button>
+                    <button id="button-basepercent-25" type="button" class="btn percTypeBtn" value="0.025">25%</button>
+                    <button id="button-basepercent-50" type="button" class="btn percTypeBtn" value="0.05">50%</button>
+                    <button id="button-basepercent-100" type="button" class="btn percTypeBtn" value="1">100%</button>
                 </div>
             </center>
         </div>
