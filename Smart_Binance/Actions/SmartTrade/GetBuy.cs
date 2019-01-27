@@ -38,6 +38,34 @@ namespace Smart_Binance.Actions.SmartTrade
             return null;
         }
 
+        public async Task<TokenViewModel> InfoDeterminedBase(string market, decimal baseAmount)
+        {
+
+            TokenViewModel viewModel = new TokenViewModel();
+            viewModel.BaseType = BaseType(market);
+
+
+            using (var client = new BinanceClient())
+            {
+                var baseBalance = await client.GetAccountInfoAsync();
+                if (baseBalance.Success)
+                {
+                    viewModel.BaseTotal = baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single();
+                    viewModel.BaseAmount = baseAmount;
+                    var currentPrice = await client.Get24HPriceAsync(market);
+                    if (currentPrice.Success)
+                    {
+                        CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
+                        viewModel.Name = market;
+                        viewModel.LastPrice = currentPrice.Data.LastPrice;
+                        viewModel.Amount = decimal.Round(viewModel.BaseAmount / viewModel.LastPrice, await amountDecimal.OrderBookDecimal(market));
+                        return viewModel;
+                    }
+                }
+            }
+            return null;
+        }
+
         public decimal AmountPercent(string type)
         {
             switch (type)
@@ -47,6 +75,12 @@ namespace Smart_Binance.Actions.SmartTrade
                 case "button-basepercent-25":
                     return 0.025m;
                 case "button-basepercent-50":
+                    return 0.05m;
+                case "button-basepercent-10-limit":
+                    return 0.01m;
+                case "button-basepercent-25-limit":
+                    return 0.025m;
+                case "button-basepercent-50-limit":
                     return 0.05m;
                 default:
                     return 1m;

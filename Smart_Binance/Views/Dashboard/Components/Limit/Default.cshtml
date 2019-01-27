@@ -1,0 +1,101 @@
+﻿@model Smart_Binance.Models.ViewModels.TokenViewModel
+@{
+    ViewData["Title"] = "Limit";
+}
+
+<link href="~/lib/CustomCSS/InputTabs.css" rel="stylesheet" />
+<script>
+    var percentType = '@Model.PercentType';
+    var baseTotal = '@Model.BaseTotal';
+    var baseAmount = '@Model.BaseAmount';
+    var lastPrice = '@Model.LastPrice';
+    var amount = '@Model.Amount';
+</script>
+<script src="~/js/LimitComponent/LimitComponent.js"></script>
+<style>
+    #button-basepercent-10-limit {
+        line-height: 10px;
+        width: 4em;
+        border: 1px solid black;
+        height: 2em;
+        background-color: white;
+    }
+
+    #button-basepercent-25-limit {
+        line-height: 10px;
+        width: 4em;
+        border: 1px solid black;
+        height: 2em;
+        background-color: white;
+    }
+
+    #button-basepercent-50-limit {
+        line-height: 10px;
+        width: 4em;
+        border: 1px solid black;
+        height: 2em;
+        background-color: white;
+    }
+
+    #button-basepercent-100-limit {
+        line-height: 10px;
+        width: 4em;
+        border: 1px solid black;
+        height: 2em;
+        background-color: white;
+    }
+
+    #button-basepercent-10-limit.active {
+        background-color: rgb(245,188,0,0.7);
+        color: white;
+    }
+
+    #button-basepercent-25-limit.active {
+        background-color: rgb(245,188,0,0.7);
+        color: white;
+    }
+
+    #button-basepercent-50-limit.active {
+        background-color: rgb(245,188,0,0.7);
+        color: white;
+    }
+
+    #button-basepercent-100-limit.active {
+        background-color: rgb(245,188,0,0.7);
+        color: white;
+    }
+</style>
+<div>
+    <form action="CreateBuy">
+        <div id="input-padd">
+            <h4 id="form-lables" style="font-size:15px">Units</h4>
+            <center>
+                <input class="form-control" id="amount-limit" type="text" placeholder="0.000" value="@Model.Amount" />
+            </center>
+        </div>
+        <div id="input-padd">
+            <h4 id="form-lables" style="font-size:15px">Price</h4>
+            <center>
+                <input id="lastprice-limit" class="form-control" type="text" placeholder="0.000" value="@Model.LastPrice" />
+            </center>
+        </div>
+        <div id="input-padd">
+            <h4 id="form-lables" style="font-size:15px">Total</h4>
+            <center>
+                <input class="form-control" id="basetotal-limit" type="text" placeholder="0.000" value="@Model.BaseAmount" />
+            </center>
+        </div>
+        <div style="padding-top:1em">
+            <center>
+
+                <div class="btn-group" role="group" id="PercentTypeGroup-limit" data-toggle="button" aria-label="Basic example">
+                    <button id="button-basepercent-10-limit" type="button" class="btn percTypeBtn-limit" value="0.1">10%</button>
+                    <button id="button-basepercent-25-limit" type="button" class="btn percTypeBtn-limit" value="0.25">25%</button>
+                    <button id="button-basepercent-50-limit" type="button" class="btn percTypeBtn-limit" value="0.50">50%</button>
+                    <button id="button-basepercent-100-limit" type="button" class="btn percTypeBtn-limit" value="1">100%</button>
+                </div>
+            </center>
+        </div>
+    </form>
+</div>
+

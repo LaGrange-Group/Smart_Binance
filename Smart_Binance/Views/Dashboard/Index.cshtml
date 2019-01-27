@@ -48,16 +48,20 @@
 
 <div class="row" style="padding-top:2%">
     <div class="col-xs-4" style="border-right:1px solid #bababa; height:400px">
-        @*<h4 style="color:#bababa">Buy</h4>
-            <hr />*@
-        <ul class="nav nav-tabs" style="height:3.53em">
-            <li class="active"><a data-toggle="tab" href="#buy"><h4>Buy</h4></a></li>
-            <li><a data-toggle="tab" href="#sell"><h4>Sell</h4></a></li>
+        <ul id="tabtype" class="nav nav-tabs" style="height:3.53em">
+            <li id="markettab" class="active"><a data-toggle="tab" href="#market"><h4>Market</h4></a></li>
+            <li id="limittab"><a data-toggle="tab" href="#limit"><h4>Limit</h4></a></li>
+            <li id="selltab"><a data-toggle="tab" href="#sell"><h4>Sell</h4></a></li>
         </ul>
         <div class="tab-content">
-            <div id="buy" class="tab-pane fade in active" style="padding-top:1em">
-                <div id="BuyContainer">
-                    @await Component.InvokeAsync("Buy")
+            <div id="market" class="tab-pane fade in active" style="padding-top:1em">
+                <div id="MarketContainer">
+                    @await Component.InvokeAsync("Market")
+                </div>
+            </div>
+            <div id="limit" class="tab-pane fade in" style="padding-top:1em">
+                <div id="LimitContainer">
+                    @await Component.InvokeAsync("Limit")
                 </div>
             </div>
             <div id="sell" class="tab-pane fade in"></div>

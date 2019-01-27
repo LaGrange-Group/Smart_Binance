@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Smart_Binance.ViewComponents
 {
-    public class Buy : ViewComponent
+    public class Limit : ViewComponent
     {
-        public Buy()
+        public Limit()
         {
 
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string market = null, string percentType = "button-basepercent-25")
+        public async Task<IViewComponentResult> InvokeAsync(string market = null, string percentType = "button-basepercent-25", decimal baseAmount = 0m)
         {
 
             TokenViewModel token;
@@ -33,8 +33,8 @@ namespace Smart_Binance.ViewComponents
             else
             {
                 GetBuy getBuy = new GetBuy();
-                token = await getBuy.Info(market, getBuy.AmountPercent(percentType));
-                token.PercentType = "#" + percentType;
+                token = baseAmount == 0 ? await getBuy.Info(market, getBuy.AmountPercent(percentType)) : await getBuy.InfoDeterminedBase(market, Convert.ToDecimal(baseAmount));
+                token.PercentType = baseAmount == 0 ? "#" + percentType : "";
                 return View(token);
             }
         }
