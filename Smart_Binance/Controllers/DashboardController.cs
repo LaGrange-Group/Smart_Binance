@@ -33,9 +33,14 @@ namespace Smart_Binance.Controllers
             dashboard.Balances = await balances.GetBalanceValues();
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
-            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC" };
+            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC", "BTCUSDT" };
             ViewBag.Markets = new SelectList(Symbols);
             return View(dashboard);
+        }
+
+        public IActionResult GetMySellViewComponent(string marketPass)
+        {
+            return ViewComponent("Sell", new { market = marketPass });
         }
 
         public IActionResult GetMyMarketViewComponent(string marketPass, string percentTypePass = "button-basepercent-25")

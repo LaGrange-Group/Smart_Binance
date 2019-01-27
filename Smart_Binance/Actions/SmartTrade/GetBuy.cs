@@ -71,17 +71,17 @@ namespace Smart_Binance.Actions.SmartTrade
             switch (type)
             {
                 case "button-basepercent-10":
-                    return 0.01m;
+                    return 0.10m;
                 case "button-basepercent-25":
-                    return 0.025m;
+                    return 0.25m;
                 case "button-basepercent-50":
-                    return 0.05m;
+                    return 0.50m;
                 case "button-basepercent-10-limit":
-                    return 0.01m;
+                    return 0.10m;
                 case "button-basepercent-25-limit":
-                    return 0.025m;
+                    return 0.25m;
                 case "button-basepercent-50-limit":
-                    return 0.05m;
+                    return 0.50m;
                 default:
                     return 1m;
             }

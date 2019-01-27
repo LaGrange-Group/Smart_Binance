@@ -64,7 +64,11 @@
                     @await Component.InvokeAsync("Limit")
                 </div>
             </div>
-            <div id="sell" class="tab-pane fade in"></div>
+            <div id="sell" class="tab-pane fade in" style="padding-top:1em">
+                <div id="SellContainer">
+                    @await Component.InvokeAsync("Sell")
+                </div>
+            </div>
         </div>
 
     </div>

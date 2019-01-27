@@ -34,7 +34,7 @@ namespace Smart_Binance.ViewComponents
             {
                 GetBuy getBuy = new GetBuy();
                 token = baseAmount == 0 ? await getBuy.Info(market, getBuy.AmountPercent(percentType)) : await getBuy.InfoDeterminedBase(market, Convert.ToDecimal(baseAmount));
-                token.PercentType = baseAmount == 0 ? "#" + percentType : "";
+                token.PercentType = baseAmount == 0 ? "#" + percentType.Replace("-limit", "") : "";
                 return View(token);
             }
         }

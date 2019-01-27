@@ -1,5 +1,6 @@
 ﻿var marketContainer = $("#MarketContainer");  //quoteProcedureComponentContainer
 var limitContainer = $("#LimitContainer");  //quoteProcedureComponentContainer
+var sellContainer = $("#SellContainer");  //quoteProcedureComponentContainer
 var refreshComponent = function (tab) {
     if (tab === "markettab") {
         var percentBase = '';
@@ -13,12 +14,12 @@ var refreshComponent = function (tab) {
             percentBase = $(this).attr('id');
         });
         $.get("/Dashboard/GetMyLimitViewComponent", { marketPass: $("#MarketName").val(), percentTypePass: percentBase }, function (data) { limitContainer.html(data); });
+    } else if (tab === "selltab") {
+        $.get("/Dashboard/GetMySellViewComponent", { marketPass: $("#MarketName").val() }, function (data) { sellContainer.html(data); });
     }
-    
 };
 $(function () {
     $("#MarketName").on('change', function () {
-        //var selectedTab = $("#tabtype ul.nav-tabs li a.active");
         var selectedTab = $("#tabtype li.active").attr("id");
         refreshComponent(selectedTab);
     });

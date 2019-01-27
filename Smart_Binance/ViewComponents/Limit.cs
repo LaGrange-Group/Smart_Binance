@@ -15,7 +15,7 @@ namespace Smart_Binance.ViewComponents
 
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string market = null, string percentType = "button-basepercent-25", decimal baseAmount = 0m)
+        public async Task<IViewComponentResult> InvokeAsync(string market = null, string percentType = "button-basepercent-25-limit", decimal baseAmount = 0m)
         {
 
             TokenViewModel token;
