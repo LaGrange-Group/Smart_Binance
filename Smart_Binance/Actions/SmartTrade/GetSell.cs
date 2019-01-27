@@ -26,9 +26,9 @@ namespace Smart_Binance.Actions.SmartTrade
                     if (currentPrice.Success)
                     {
                         CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
-                        viewModel.DecimalAmount = await amountDecimal.OrderBookDecimal(market);
+                        viewModel.AssetDecimalAmount = await amountDecimal.OrderBookDecimal(market);
                         viewModel.Name = market;
-                        viewModel.Amount = decimal.Round(balance.Free, viewModel.DecimalAmount);
+                        viewModel.Amount = decimal.Round(balance.Free, viewModel.AssetDecimalAmount);
                         viewModel.LastPrice = currentPrice.Data.LastPrice;
                         return viewModel;
                     }

@@ -10,6 +10,8 @@
     var baseAmount = '@Model.BaseAmount';
     var lastPrice = '@Model.LastPrice';
     var amount = '@Model.Amount';
+    var baseDecimalAmount = '@Model.BaseDecimalAmount';
+    var assetDecimalAmount = '@Model.AssetDecimalAmount';
 </script>
 <script src="~/js/LimitComponent/LimitComponent.js"></script>
 <style>
@@ -76,7 +78,7 @@
         <div id="input-padd">
             <h4 id="form-lables" style="font-size:15px">Price</h4>
             <center>
-                <input id="lastprice-limit" class="form-control" type="text" placeholder="0.000" value="@Model.LastPrice" />
+                <input id="lastprice-limit" class="form-control" type="text" placeholder="0.000" value="@Model.LastPrice.ToString("0.###############")" />
             </center>
         </div>
         <div id="input-padd">

@@ -1,6 +1,8 @@
 ﻿var marketContainer = $("#MarketContainer");  //quoteProcedureComponentContainer
 var limitContainer = $("#LimitContainer");  //quoteProcedureComponentContainer
 var sellContainer = $("#SellContainer");  //quoteProcedureComponentContainer
+
+var defaultMarket = "----Select Market----";
 var refreshComponent = function (tab) {
     if (tab === "markettab") {
         var percentBase = '';
@@ -27,7 +29,7 @@ $(function () {
 
 $('#tabtype li').click(function () {
     var selectedTab = $(this).attr('id');
-    if ($('#MarketName').val() !== "----Select Market----" && selectedTab == "limittab") {
+    if ($('#MarketName').val() !== defaultMarket && selectedTab == "limittab") {
         var currentBaseAmount = $('#basetotal').val();
         var percentBase = '';
         $('#PercentTypeGroup .active').each(function () {
@@ -37,7 +39,7 @@ $('#tabtype li').click(function () {
             currentBaseAmount = 0;
         }
         $.get("/Dashboard/SwitchToLimitViewComponent", { marketPass: $("#MarketName").val(), percentTypePass: percentBase, currentBasePass: currentBaseAmount }, function (data) { limitContainer.html(data); });
-    } else if ($('#MarketName').val() !== "----Select Market----" && selectedTab == "markettab") {
+    } else if ($('#MarketName').val() !== defaultMarket && selectedTab == "markettab") {
         var currentBaseAmount = $('#basetotal-limit').val();
         var percentBase = '';
         $('#PercentTypeGroup-limit .active').each(function () {
@@ -47,6 +49,8 @@ $('#tabtype li').click(function () {
             currentBaseAmount = 0;
         }
         $.get("/Dashboard/SwitchToMarketViewComponent", { marketPass: $("#MarketName").val(), percentTypePass: percentBase, currentBasePass: currentBaseAmount }, function (data) { marketContainer.html(data); });
+    } else if ($('#MarketName').val() !== defaultMarket && selectedTab == "selltab") {
+        $.get("/Dashboard/GetMySellViewComponent", { marketPass: $("#MarketName").val() }, function (data) { sellContainer.html(data); });
     }
 })
 

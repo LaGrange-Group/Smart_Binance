@@ -9,6 +9,8 @@
     var baseAmount = '@Model.BaseAmount';
     var lastPrice = '@Model.LastPrice';
     var amount = '@Model.Amount';
+    var baseDecimalAmount = '@Model.BaseDecimalAmount';
+    var assetDecimalAmount = '@Model.AssetDecimalAmount';
 </script>
 <script src="~/js/MarketComponent/MarketComponent.js"></script>
 <style>
@@ -25,7 +27,7 @@
         <div id="input-padd">
             <h4 id="form-lables" style="font-size:15px">Price</h4>
             <center>
-                <input class="form-control" type="text" placeholder="0.000" value="@Model.LastPrice" disabled />
+                <input class="form-control" type="text" placeholder="0.000" value="@Model.LastPrice.ToString("0.###############")" disabled />
             </center>
         </div>
         <div id="input-padd">

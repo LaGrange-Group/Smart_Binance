@@ -4,29 +4,30 @@
     }
 })
 baseCurrencyTotalColor(baseAmount);
-var decimalAmount = precision(parseFloat(amount));
 
 
 $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
     var percent = $(this).val();
-    var baseAmountCalc = baseTotal * percent;
+    var baseAmountCalc = (baseTotal * percent).toFixed(baseDecimalAmount);
     $('#basetotal').css('color', 'black');
     $('#basetotal').val(baseAmountCalc);
-    $('#amount').val((baseAmountCalc / lastPrice).toFixed(decimalAmount));
+    $('#amount').val((baseAmountCalc / lastPrice).toFixed(assetDecimalAmount));
 });
 
 $('body').on('change', '#basetotal', function () {
     removeActiveButton();
     var inputBaseAmount = $(this).val();
+    inputBaseAmount = (inputBaseAmount * 1).toFixed(baseDecimalAmount);
+    $(this).val(inputBaseAmount);
     baseCurrencyTotalColor(inputBaseAmount);
-    $('#amount').val((inputBaseAmount / lastPrice).toFixed(decimalAmount));
+    $('#amount').val((inputBaseAmount / lastPrice).toFixed(assetDecimalAmount));
 });
 
 $('body').on('change', '#amount', function () {
     removeActiveButton();
     var inputAmount = $('#amount').val();
-    var newCost = (inputAmount * lastPrice).toFixed(8);
+    var newCost = (inputAmount * lastPrice).toFixed(baseDecimalAmount);
     $('#basetotal').val(newCost);
     var cba = $('#basetotal').val();
     baseCurrencyTotalColor(cba);
@@ -50,11 +51,4 @@ function baseCurrencyTotalColor(currentBaseAmount) {
     } else {
         $('#basetotal').css('color', 'black');
     }
-}
-
-function precision(a) {
-    if (!isFinite(a)) return 0;
-    var e = 1, p = 0;
-    while (Math.round(a * e) / e !== a) { e *= 10; p++; }
-    return p;
 }

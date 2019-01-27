@@ -6,6 +6,7 @@
 <script>
     var lastPrice = '@Model.LastPrice';
     var amount = '@Model.Amount';
+    var decimalAmount = '@Model.AssetDecimalAmount';
 </script>
 <script src="~/js/SellComponent/SellComponent.js"></script>
 <style>
@@ -79,10 +80,10 @@
             <center>
              
                 <div class="btn-group" role="group" id="PercentTypeGroup-sell" data-toggle="button" aria-label="Basic example">
-                    <button id="button-basepercent-10-sell" type="button" class="btn percTypeBtn" value="0.1">10%</button>
-                    <button id="button-basepercent-25-sell" type="button" class="btn percTypeBtn" value="0.25">25%</button>
-                    <button id="button-basepercent-50-sell" type="button" class="btn percTypeBtn" value="0.50">50%</button>
-                    <button id="button-basepercent-100-sell" type="button" class="btn percTypeBtn" value="1">100%</button>
+                    <button id="button-basepercent-10-sell" type="button" class="btn percTypeBtn-sell" value="0.1">10%</button>
+                    <button id="button-basepercent-25-sell" type="button" class="btn percTypeBtn-sell" value="0.25">25%</button>
+                    <button id="button-basepercent-50-sell" type="button" class="btn percTypeBtn-sell" value="0.50">50%</button>
+                    <button id="button-basepercent-100-sell" type="button" class="btn percTypeBtn-sell" value="1">100%</button>
                 </div>
             </center>
         </div>

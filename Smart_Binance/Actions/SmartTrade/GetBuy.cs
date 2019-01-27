@@ -22,15 +22,17 @@ namespace Smart_Binance.Actions.SmartTrade
                 var baseBalance = await client.GetAccountInfoAsync();
                 if (baseBalance.Success)
                 {
-                    viewModel.BaseTotal = baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single();
-                    viewModel.BaseAmount = viewModel.BaseTotal * amountPercent;
+                    CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
+                    viewModel.BaseDecimalAmount = viewModel.BaseType == "USDT" || viewModel.BaseType == "TUSD" || viewModel.BaseType == "USDC" || viewModel.BaseType == "PAX" ? 2 : await amountDecimal.OrderBookDecimal(viewModel.BaseType + "USDT");
+                    viewModel.BaseTotal = decimal.Round(baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single(), viewModel.BaseDecimalAmount);
+                    viewModel.BaseAmount = decimal.Round(viewModel.BaseTotal * amountPercent, viewModel.BaseDecimalAmount);
                     var currentPrice = await client.Get24HPriceAsync(market);
                     if (currentPrice.Success)
                     {
-                        CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
+                        viewModel.AssetDecimalAmount = await amountDecimal.OrderBookDecimal(market);
                         viewModel.Name = market;
                         viewModel.LastPrice = currentPrice.Data.LastPrice;
-                        viewModel.Amount = decimal.Round(viewModel.BaseAmount / viewModel.LastPrice, await amountDecimal.OrderBookDecimal(market));
+                        viewModel.Amount = decimal.Round(viewModel.BaseAmount / viewModel.LastPrice, viewModel.AssetDecimalAmount);
                         return viewModel;
                     }
                 }
@@ -93,6 +95,9 @@ namespace Smart_Binance.Actions.SmartTrade
             end = end.Contains("BNB") ? "BNB" : end;
             end = end.Contains("BTC") ? "BTC" : end;
             end = end.Contains("USDT") ? "USDT" : end;
+            end = end.Contains("TUSD") ? "TUSD" : end;
+            end = end.Contains("USDC") ? "USDC" : end;
+            end = end.Contains("PAX") ? "PAX" : end;
             end = end.Contains("ETH") ? "ETH" : end;
             end = end.Contains("XRP") ? "XRP" : end;
             return end;

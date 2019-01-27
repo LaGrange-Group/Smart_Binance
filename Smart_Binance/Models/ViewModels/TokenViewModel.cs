@@ -16,6 +16,7 @@ namespace Smart_Binance.Models.ViewModels
         public string BuyType { get; set; }
         public string PercentType { get; set; }
         public string BaseType { get; set; }
-        public int DecimalAmount { get; set; }
+        public int AssetDecimalAmount { get; set; }
+        public int BaseDecimalAmount { get; set; }
     }
 }
