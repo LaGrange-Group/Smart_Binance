@@ -3,8 +3,9 @@
         $(percentType).addClass('active');
     }
 })
+var takeProfitContainer = $("#TakeProfitContainer");
 baseCurrencyTotalColor(baseAmount);
-
+UpdateTakeProfitContainer();
 
 $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
@@ -50,5 +51,13 @@ function baseCurrencyTotalColor(currentBaseAmount) {
         $('#basetotal').css('color', 'red');
     } else {
         $('#basetotal').css('color', 'black');
+    }
+}
+
+
+
+function UpdateTakeProfitContainer() {
+    if ($('#MarketName').val() !== "----Select Market----") {
+        $.get("/Dashboard/UpdateTakeProfitViewComponent", { pricePass: $("#lastprice").val() }, function (data) { takeProfitContainer.html(data); });
     }
 }

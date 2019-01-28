@@ -1,6 +1,9 @@
-﻿var marketContainer = $("#MarketContainer");  //quoteProcedureComponentContainer
+﻿// -------------------------- Tab Components
+
+var marketContainer = $("#MarketContainer");  //quoteProcedureComponentContainer
 var limitContainer = $("#LimitContainer");  //quoteProcedureComponentContainer
 var sellContainer = $("#SellContainer");  //quoteProcedureComponentContainer
+  //quoteProcedureComponentContainer
 
 var defaultMarket = "----Select Market----";
 var refreshComponent = function (tab) {
@@ -69,3 +72,18 @@ $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
     var percent = $(this).val();
 });
+
+
+//------------------------------ Take Profit Component
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("stocktakeprofitpercentbox");
+output.value = slider.value;
+
+$('#stocktakeprofitpercentbox').on('input', function () {
+    slider.value = this.value;
+});
+
+slider.oninput = function () {
+    output.value = this.value;
+}
