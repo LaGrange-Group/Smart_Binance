@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Smart_Binance.ViewComponents
 {
-    public class TakeProfitVC : ViewComponent
+    public class StopLossVC : ViewComponent
     {
-        public TakeProfitVC()
+        public StopLossVC()
         {
 
         }

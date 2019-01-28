@@ -4,8 +4,9 @@
     }
 })
 var takeProfitContainer = $("#TakeProfitContainer");
+var stopLossContainer = $("#StopLossContainer");
 baseCurrencyTotalColor(baseAmount);
-UpdateTakeProfitContainer();
+UpdateStopTakeContainer();
 
 $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
@@ -56,8 +57,9 @@ function baseCurrencyTotalColor(currentBaseAmount) {
 
 
 
-function UpdateTakeProfitContainer() {
+function UpdateStopTakeContainer() {
     if ($('#MarketName').val() !== "----Select Market----") {
-        $.get("/Dashboard/UpdateTakeProfitViewComponent", { pricePass: $("#lastprice").val() }, function (data) { takeProfitContainer.html(data); });
+        $.get("/Dashboard/UpdateStopLossViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { stopLossContainer.html(data); });
+        $.get("/Dashboard/UpdateTakeProfitViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { takeProfitContainer.html(data); });
     }
 }

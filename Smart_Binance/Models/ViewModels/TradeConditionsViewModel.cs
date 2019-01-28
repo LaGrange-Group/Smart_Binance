@@ -8,5 +8,6 @@ namespace Smart_Binance.Models.ViewModels
     public class TradeConditionsViewModel
     {
         public decimal Price { get; set; }
+        public int PriceDecimal { get; set; }
     }
 }

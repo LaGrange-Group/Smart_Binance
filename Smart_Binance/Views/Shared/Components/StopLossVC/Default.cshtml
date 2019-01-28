@@ -1,9 +1,9 @@
 ﻿@model Smart_Binance.Models.ViewModels.TradeConditionsViewModel
 @{
-    ViewData["Title"] = "Take Profit";
+    ViewData["Title"] = "Stop Loss";
 }
 <link href="~/lib/CustomCSS/InputTabs.css" rel="stylesheet" />
-<script src="~/js/TakeProfitComponent/TakeProfitComponent.js"></script>
+<script src="~/js/StopLossComponent/StopLossComponent.js"></script>
 <script>
     var initialPrice = '@Model.Price';
     var priceDecimal = '@Model.PriceDecimal';
@@ -52,7 +52,7 @@
 <div id="input-padd">
     <h4 id="form-lables" style="font-size:15px">Price</h4>
     <center>
-        <input id="price-sell" class="form-control" type="text" placeholder="0.000" value="@Model.Price" />
+        <input id="price-stoploss" class="form-control" type="text" placeholder="0.000" value="@Model.Price" />
     </center>
     <script>
         if (initialPrice != 0) {
@@ -64,12 +64,12 @@
     <div class="row">
         <div class="col-xs-8">
             <div class="slidecontainer" style="padding-top:13%; float:right">
-                <input type="range" min="0" max="100" value="5" class="slider" id="myRange">
+                <input type="range" min="0" max="100" value="5" class="slider" id="myRange-stoploss">
             </div>
         </div>
         <div class="col-xs-3">
             <div style="padding-top:25%">
-                <input id="stocktakeprofitpercentbox" class="form-control" style="color:green" type="number" value="0" />
+                <input id="stockstoplosspercentbox" class="form-control" style="color:red" type="number" value="0" />
             </div>
         </div>
         <div class="col-xs-1" style="padding:0px">

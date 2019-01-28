@@ -60,9 +60,14 @@ namespace Smart_Binance.Controllers
             return ViewComponent("Limit", new { market = marketPass, percentType = percentTypePass, baseAmount = currentBasePass });
         }
 
-        public IActionResult UpdateTakeProfitViewComponent(decimal pricePass)
+        public IActionResult UpdateTakeProfitViewComponent(decimal pricePass, string marketPass)
         {
-            return ViewComponent("TakeProfitVC", new { price = pricePass });
+            return ViewComponent("TakeProfitVC", new { price = pricePass, market = marketPass});
+        }
+
+        public IActionResult UpdateStopLossViewComponent(decimal pricePass, string marketPass)
+        {
+            return ViewComponent("StopLossVC", new { price = pricePass, market = marketPass });
         }
     }
 }
