@@ -38,10 +38,7 @@ namespace Smart_Binance.Controllers
             return View(dashboard);
         }
 
-        public IActionResult LoadingGif()
-        {
-            return PartialView();
-        }
+
 
         public IActionResult GetMySellViewComponent(string marketPass)
         {
@@ -83,6 +80,11 @@ namespace Smart_Binance.Controllers
         public IActionResult UpdateStopLossViewComponent(decimal pricePass, string marketPass)
         {
             return ViewComponent("StopLossVC", new { price = pricePass, market = marketPass });
+        }
+
+        public IActionResult LoadingGif(string typePass)
+        {
+            return ViewComponent("LoadingGif", new { type = typePass });
         }
     }
 }

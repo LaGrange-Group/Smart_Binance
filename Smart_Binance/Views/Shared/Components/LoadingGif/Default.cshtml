@@ -1,0 +1,24 @@
+﻿@model Smart_Binance.Models.ViewModels.LoadingGifViewModel
+@{
+    ViewData["Title"] = "Loading Gif";
+    Layout = null;
+}
+
+<div style="height:300px; width:100%;">
+    <div style="padding-top:13%">
+        <center>
+            @if (Model.Type == "red")
+            {
+                <img src="~/lib/Gifs/Spinner-1s-200pxred.gif" />
+            }
+            else if (Model.Type == "green")
+            {
+                <img src="~/lib/Gifs/Spinner-1s-200pxgreen.gif" />
+            }
+            else
+            {
+                <img src="~/lib/Gifs/Spinner-1s-200pxbinance.gif" />
+            }
+        </center>
+    </div>
+</div>

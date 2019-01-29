@@ -31,7 +31,7 @@ function precision(a) {
     return p;
 }
 
-function InitialTP() {
+function InitialTPTake() {
     var newPrice = (initialPrice * 1) + (initialPrice * (output.value / 100));
     priceBox.value = newPrice.toFixed(priceDecimal);
 };

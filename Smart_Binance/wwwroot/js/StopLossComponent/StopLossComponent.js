@@ -1,7 +1,7 @@
 ﻿var sliderStop = document.getElementById("myRange-stoploss");
 var outputStop = document.getElementById("stockstoplosspercentbox");
 var priceBoxStop = document.getElementById("price-stoploss");
-output.value = slider.value;
+outputStop.value = sliderStop.value;
 
 
 
@@ -31,7 +31,7 @@ function precision(a) {
     return p;
 }
 
-function InitialTP() {
+function InitialTPStop() {
     var newPrice = (initialPrice * 1) + (initialPrice * (outputStop.value / 100));
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
 };
