@@ -7,6 +7,7 @@ $(activateStop).click(function () {
 });
 
 function ActivateStop() {
+    SetStopTrue();
     var selectedTab = $("#tabtype li.active").attr("id");
     if ($(marketName).val() !== stockMarket && selectedTab == "markettab") {
         $.get("/Dashboard/LoadingGif", { typePass: "red" }, function (data) { stopLossContainer.html(data); });

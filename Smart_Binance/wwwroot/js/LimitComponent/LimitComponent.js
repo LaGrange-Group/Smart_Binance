@@ -18,6 +18,7 @@ $(".percTypeBtn-limit").click(function () {
 $('#lastprice-limit').on('change', function () {
     var currentBaseAmount = $('#basetotal-limit').val();
     $('#amount-limit').val((currentBaseAmount / $(this).val()).toFixed(assetDecimalAmount));
+    UpdateStopTakeContainer();
 });
 
 

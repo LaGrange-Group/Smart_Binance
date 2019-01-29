@@ -7,6 +7,7 @@ $(activateTake).click(function () {
 });
 
 function ActivateTake() {
+    SetTakeTrue();
     var selectedTab = $("#tabtype li.active").attr("id");
     if ($(marketName).val() !== stockMarket && selectedTab == "markettab") {
         $.get("/Dashboard/LoadingGif", { typePass: "green" }, function (data) { takeProfitContainer.html(data); });

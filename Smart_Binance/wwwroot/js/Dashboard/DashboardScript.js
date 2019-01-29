@@ -95,6 +95,7 @@ $(activateTake).click(function () {
 });
 
 function ActivateTake() {
+    SetTakeTrue();
     var selectedTab = $("#tabtype li.active").attr("id");
     if ($(marketName).val() !== stockMarket && selectedTab == "markettab") {
         $.get("/Dashboard/LoadingGif", { typePass: "green" }, function (data) { takeProfitContainer.html(data); });
@@ -146,7 +147,13 @@ function InitialTPTake() {
     priceBox.value = newPrice.toFixed(priceDecimal);
 };
 
+function SetTakeTrue() {
+    $('#takeprofit').data('internalid', 1);
+}
 
+function SetTakeFalse() {
+    $('#takeprofit').data('internalid', 0);
+}
 //------------------------------ Stop Loss Component
 
 var activateStop = document.getElementById("activatestop");
@@ -155,6 +162,7 @@ $('#activatestop').click(function () {
 });
 
 function ActivateStop() {
+    SetStopTrue();
     var selectedTab = $("#tabtype li.active").attr("id");
     if ($(marketName).val() !== stockMarket && selectedTab == "markettab") {
         $.get("/Dashboard/LoadingGif", { typePass: "red" }, function (data) { sellContainer.html(data); });
@@ -206,10 +214,18 @@ function InitialTPStop() {
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
 };
 
+function SetStopTrue() {
+    $('#stoploss').data('internalid', 1);
+}
 
+function SetStopFalse() {
+    $('#stoploss').data('internalid', 0);
+}
 // --------------------------- Reset Stop and Take
 
 function UpdateStopTakeContainer() {
     $.get("/Dashboard/ResetStopLoss", function (data) { stopLossContainer.html(data); });
     $.get("/Dashboard/ResetTakeProfit", function (data) { takeProfitContainer.html(data); });
+    SetStopFalse();
+    SetTakeFalse();
 }
