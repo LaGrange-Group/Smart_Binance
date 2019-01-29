@@ -7,13 +7,13 @@ output.value = slider.value;
 
 outputStop.oninput = function () {
     sliderStop.value = this.value;
-    var newPrice = (initialPrice * 1) - (initialPrice * (this.value / 100));
+    var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
 }
 
 sliderStop.oninput = function () {
     outputStop.value = this.value;
-    var newPrice = (initialPrice * 1) - (initialPrice * (this.value / 100));
+    var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
 }
 
@@ -32,6 +32,6 @@ function precision(a) {
 }
 
 function InitialTP() {
-    var newPrice = (initialPrice * 1) - (initialPrice * (output.value / 100));
+    var newPrice = (initialPrice * 1) + (initialPrice * (outputStop.value / 100));
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
 };

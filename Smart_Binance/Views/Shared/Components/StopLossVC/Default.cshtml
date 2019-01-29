@@ -18,12 +18,12 @@
         -webkit-appearance: none;
     }
 
-    .slidecontainer {
+    .slidecontainer-stop {
         position: unset;
         width: 100%;
     }
 
-    .slider {
+    .slider-stop {
         -webkit-appearance: none;
         width: 100%;
         height: 15px;
@@ -36,16 +36,16 @@
         position: unset;
     }
 
-        .slider:hover {
+        .slider-stop:hover {
             opacity: 1;
         }
 
-        .slider::-webkit-slider-thumb {
+        .slider-stop::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 25px;
             height: 25px;
             border-radius: 50%;
-            background: #f8cb39;
+            background: red;
             cursor: pointer;
         }
 </style>
@@ -63,13 +63,13 @@
 <center>
     <div class="row">
         <div class="col-xs-8">
-            <div class="slidecontainer" style="padding-top:13%; float:right">
-                <input type="range" min="0" max="100" value="5" class="slider" id="myRange-stoploss">
+            <div class="slidecontainer-stop" style="padding-top:13%; float:right">
+                <input type="range" min="-100" max="-0" value="-5" class="slider-stop" id="myRange-stoploss">
             </div>
         </div>
         <div class="col-xs-3">
             <div style="padding-top:25%">
-                <input id="stockstoplosspercentbox" class="form-control" style="color:red" type="number" value="0" />
+                <input id="stockstoplosspercentbox" class="form-control" style="color:red" type="number" value="-5" />
             </div>
         </div>
         <div class="col-xs-1" style="padding:0px">

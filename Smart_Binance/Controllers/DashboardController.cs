@@ -38,9 +38,24 @@ namespace Smart_Binance.Controllers
             return View(dashboard);
         }
 
+        public IActionResult LoadingGif()
+        {
+            return PartialView();
+        }
+
         public IActionResult GetMySellViewComponent(string marketPass)
         {
             return ViewComponent("Sell", new { market = marketPass });
+        }
+
+        public IActionResult ResetStopLoss()
+        {
+            return ViewComponent("ActivateStopVC");
+        }
+
+        public IActionResult ResetTakeProfit()
+        {
+            return ViewComponent("ActivateTakeVC");
         }
         public IActionResult GetMyMarketViewComponent(string marketPass, string percentTypePass = "button-basepercent-25")
         {

@@ -26,6 +26,7 @@ var refreshComponent = function (tab) {
 $(function () {
     $("#MarketName").on('change', function () {
         var selectedTab = $("#tabtype li.active").attr("id");
+        UpdateStopTakeContainer();
         refreshComponent(selectedTab);
     });
 })
@@ -76,6 +77,36 @@ $(".percTypeBtn").click(function () {
 
 //------------------------------ Take Profit Component
 
+var activateStop = document.getElementById("activatetake");
+$(activateStop).click(function () {
+    ActivateTake();
+});
+
+function ActivateTake() {
+    alert("Entered Update Take");
+    if ($('#MarketName').val() !== "----Select Market----") {
+        $.get("/Dashboard/UpdateTakeProfitViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { takeProfitContainer.html(data); });
+    } else {
+        $.get("/Dashboard/UpdateTakeProfitViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { takeProfitContainer.html(data); });
+    }
+}
+//------------------------------ Stop Loss Component
+
+var activateStop = document.getElementById("activatestop");
+$(activateStop).click(function () {
+    ActivateStop();
+});
+
+function ActivateStop() {
+    alert("Entered Update Stop");
+    if ($('#MarketName').val() !== "----Select Market----") {
+        $.get("/Dashboard/UpdateStopLossViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { stopLossContainer.html(data); });
+    } else {
+        $.get("/Dashboard/UpdateStopLossViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { stopLossContainer.html(data); });
+    }
+}
+
+
 var slider = document.getElementById("myRange");
 var output = document.getElementById("stocktakeprofitpercentbox");
 output.value = slider.value;
@@ -86,4 +117,11 @@ $('#stocktakeprofitpercentbox').on('input', function () {
 
 slider.oninput = function () {
     output.value = this.value;
+}
+
+// --------------------------- Reset Stop and Take
+
+function UpdateStopTakeContainer() {
+    $.get("/Dashboard/ResetStopLoss", function (data) { stopLossContainer.html(data); });
+    $.get("/Dashboard/ResetTakeProfit", function (data) { takeProfitContainer.html(data); });
 }

@@ -95,3 +95,6 @@ input, select, textarea {
     color: white;
 }
 
+button{
+    outline:none;
+}

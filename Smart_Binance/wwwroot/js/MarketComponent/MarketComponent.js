@@ -6,7 +6,6 @@
 var takeProfitContainer = $("#TakeProfitContainer");
 var stopLossContainer = $("#StopLossContainer");
 baseCurrencyTotalColor(baseAmount);
-UpdateStopTakeContainer();
 
 $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
@@ -35,6 +34,10 @@ $('body').on('change', '#amount', function () {
     baseCurrencyTotalColor(cba);
 });
 
+// ----------------- Activate Take Profit
+
+
+
 function removeActiveButton() {
     try {
         var percentBase = '';
@@ -57,9 +60,3 @@ function baseCurrencyTotalColor(currentBaseAmount) {
 
 
 
-function UpdateStopTakeContainer() {
-    if ($('#MarketName').val() !== "----Select Market----") {
-        $.get("/Dashboard/UpdateStopLossViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { stopLossContainer.html(data); });
-        $.get("/Dashboard/UpdateTakeProfitViewComponent", { pricePass: $("#lastprice").val(), marketPass: $("#MarketName").val() }, function (data) { takeProfitContainer.html(data); });
-    }
-}
