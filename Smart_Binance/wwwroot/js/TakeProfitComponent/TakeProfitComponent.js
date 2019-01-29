@@ -1,6 +1,7 @@
 ﻿var slider = document.getElementById("myRange");
 var output = document.getElementById("stocktakeprofitpercentbox");
 var priceBox = document.getElementById("price-sell");
+var trailingTakeBool = document.getElementById("trailingtakebool");
 output.value = slider.value;
 
 
@@ -23,6 +24,30 @@ $(priceBox).on('change', function () {
     var percentGain = (priceDiff / initialPrice) * 100;
     output.value = percentGain.toFixed(2);
 });
+
+trailingTakeBool.onchange = function () {
+    if (this.value == 0) {
+        this.value = 1;
+    } else if (this.value == 1) {
+        this.value = 0;
+    }
+}
+
+//------- Trailing Slide
+
+var sliderTrailing = document.getElementById("myRange-trailingtake");
+var outputTrailing = document.getElementById("trailingtakeprofitpercentbox");
+outputTrailing.value = sliderTrailing.value;
+
+outputTrailing.oninput = function () {
+    sliderTrailing.value = this.value;
+}
+
+sliderTrailing.oninput = function () {
+    outputTrailing.value = this.value;
+}
+
+
 
 function precision(a) {
     if (!isFinite(a)) return 0;

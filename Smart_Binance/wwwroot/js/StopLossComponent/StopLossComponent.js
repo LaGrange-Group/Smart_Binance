@@ -1,6 +1,7 @@
 ﻿var sliderStop = document.getElementById("myRange-stoploss");
 var outputStop = document.getElementById("stockstoplosspercentbox");
 var priceBoxStop = document.getElementById("price-stoploss");
+var trailingStopBool = document.getElementById("trailingtakebool");
 outputStop.value = sliderStop.value;
 
 
@@ -23,6 +24,14 @@ $(priceBoxStop).on('change', function () {
     var percentGain = (priceDiff / initialPrice) * 100;
     outputStop.value = percentGain.toFixed(2);
 });
+
+trailingStopBool.onchange = function () {
+    if (this.value == 0) {
+        this.value = 1;
+    } else if (this.value == 1) {
+        this.value = 0;
+    }
+}
 
 function precision(a) {
     if (!isFinite(a)) return 0;
