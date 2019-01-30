@@ -18,5 +18,6 @@ namespace Smart_Binance.Models.ViewModels
         public string BaseType { get; set; }
         public int AssetDecimalAmount { get; set; }
         public int BaseDecimalAmount { get; set; }
+        public decimal MinValue { get; set; }
     }
 }

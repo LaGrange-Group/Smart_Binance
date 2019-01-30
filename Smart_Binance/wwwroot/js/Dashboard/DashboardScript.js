@@ -88,7 +88,13 @@ $(".percTypeBtn").click(function () {
     var percent = $(this).val();
 });
 
+function DisableCreateButton() {
+    $("#smarttradebutton").attr("disabled", true);
+}
 
+function EnableCreateButton() {
+    $("#smarttradebutton").attr("disabled", false);
+}
 
 //------------------------------ Take Profit Component
 

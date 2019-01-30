@@ -5,7 +5,7 @@
 })
 var takeProfitContainer = $("#TakeProfitContainer");
 var stopLossContainer = $("#StopLossContainer");
-baseCurrencyTotalColor(baseAmount);
+baseCurrencyTotalCheck(baseAmount);
 
 $(".percTypeBtn").click(function () {
     $(".percTypeBtn").removeClass("active");
@@ -21,7 +21,7 @@ $('body').on('change', '#basetotal', function () {
     var inputBaseAmount = $(this).val();
     inputBaseAmount = (inputBaseAmount * 1).toFixed(baseDecimalAmount);
     $(this).val(inputBaseAmount);
-    baseCurrencyTotalColor(inputBaseAmount);
+    baseCurrencyTotalCheck(inputBaseAmount);
     $('#amount').val((inputBaseAmount / lastPrice).toFixed(assetDecimalAmount));
 });
 
@@ -31,7 +31,7 @@ $('body').on('change', '#amount', function () {
     var newCost = (inputAmount * lastPrice).toFixed(baseDecimalAmount);
     $('#basetotal').val(newCost);
     var cba = $('#basetotal').val();
-    baseCurrencyTotalColor(cba);
+    baseCurrencyTotalCheck(cba);
 });
 
 // ----------------- Activate Take Profit
@@ -51,10 +51,20 @@ function removeActiveButton() {
 }
 
 function baseCurrencyTotalColor(currentBaseAmount) {
-    if (currentBaseAmount > baseTotal) {
+    if (currentBaseAmount > baseTotal || currentBaseAmount < minValue) {
         $('#basetotal').css('color', 'red');
     } else {
         $('#basetotal').css('color', 'black');
+    }
+}
+
+function baseCurrencyTotalCheck(currentBaseAmount) {
+    if (currentBaseAmount > baseTotal || currentBaseAmount < minValue) {
+        $('#basetotal').css('color', 'red');
+        DisableCreateButton();
+    } else {
+        $('#basetotal').css('color', 'black');
+        EnableCreateButton();
     }
 }
 

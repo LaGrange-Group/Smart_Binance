@@ -3,16 +3,16 @@
         $(percentType).addClass('active');
     }
 })
-baseCurrencyTotalColor(baseAmount);
+baseCurrencyTotalCheck(baseAmount);
 
 
 $(".percTypeBtn-limit").click(function () {
     $(".percTypeBtn-limit").removeClass("active");
     var percent = $(this).val();
     var baseAmountCalc = (baseTotal * percent).toFixed(baseDecimalAmount);
-    $('#basetotal-limit').css('color', 'black');
     $('#basetotal-limit').val(baseAmountCalc);
     $('#amount-limit').val((baseAmountCalc / $('#lastprice-limit').val()).toFixed(assetDecimalAmount));
+    baseCurrencyTotalCheck($('#basetotal-limit').val());
 });
 
 $('#lastprice-limit').on('change', function () {
@@ -27,7 +27,7 @@ $('#basetotal-limit').on('change', function () {
     var inputBaseAmount = $(this).val();
     inputBaseAmount = (inputBaseAmount * 1).toFixed(baseDecimalAmount);
     $(this).val(inputBaseAmount);
-    baseCurrencyTotalColor(inputBaseAmount);
+    baseCurrencyTotalCheck(inputBaseAmount);
     $('#amount-limit').val((inputBaseAmount / $('#lastprice-limit').val()).toFixed(assetDecimalAmount));
 });
 
@@ -37,14 +37,16 @@ $('#amount-limit').on('change', function () {
     var newCost = (inputAmount * lastPrice).toFixed(baseDecimalAmount);
     $('#basetotal-limit').val(newCost);
     var cba = $('#basetotal-limit').val();
-    baseCurrencyTotalColor(cba);
+    baseCurrencyTotalCheck(cba);
 });
 
-function baseCurrencyTotalColor(currentBaseAmount) {
-    if (currentBaseAmount > baseTotal) {
+function baseCurrencyTotalCheck(currentBaseAmount) {
+    if (currentBaseAmount > baseTotal || currentBaseAmount < minValue) {
         $('#basetotal-limit').css('color', 'red');
+        DisableCreateButton();
     } else {
         $('#basetotal-limit').css('color', 'black');
+        EnableCreateButton();
     }
 }
 
