@@ -63,7 +63,6 @@ function removeActiveButton() {
 $('#smarttradebutton').click(function () {
     var selectedTab = $("#tabtype li.active").attr("id");
     if (selectedTab == 'limittab') {
-        alert("Triggered From Limit Component");
         CreateSmartTrade();
     }
 });

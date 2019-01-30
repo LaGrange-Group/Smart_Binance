@@ -1,6 +1,6 @@
 ﻿var slider = document.getElementById("myRange");
 var output = document.getElementById("stocktakeprofitpercentbox");
-var priceBox = document.getElementById("price-sell");
+var priceBox = document.getElementById("price-take");
 var trailingTakeBoolElement = document.getElementById("trailingtakebool");
 output.value = slider.value;
 

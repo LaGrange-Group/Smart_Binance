@@ -152,11 +152,11 @@ function InitialTPTake() {
 };
 
 function SetTakeTrue() {
-    $('#takeprofit').data('internalid', 1);
+    takeProfitBool = 1;
 }
 
 function SetTakeFalse() {
-    $('#takeprofit').data('internalid', 0);
+    takeProfitBool = 0;
 }
 
 function FlipTrailingTake() {
@@ -252,6 +252,14 @@ function UpdateStopTakeContainer() {
     $.get("/Dashboard/ResetTakeProfit", function (data) { takeProfitContainer.html(data); });
     SetStopFalse();
     SetTakeFalse();
+    ResetStopTakeValues();
+}
+
+function ResetStopTakeValues(){
+    stopLossBool = 0;
+    takeProfitBool = 0;
+    trailingStopLossBool = 0;
+    trailingTakeProfitBool = 0;
 }
 
 //$('#smarttradebutton').click(function () {
@@ -274,8 +282,6 @@ function CreateSmartTrade() {
     $(market).val($('#MarketName').val());
     var selectedTab = $("#tabtype li.active").attr("id");
 
-    alert(selectedTab);
-
     if (selectedTab == 'markettab') {
         GatherMarketDetails(tradeType, amount, price, baseAmount);
     } else if (selectedTab == 'limittab') {
@@ -283,17 +289,12 @@ function CreateSmartTrade() {
     } else if (selectedTab == 'selltab') {
         GatherSellDetails(tradeType, amount);
     }
-
     GatherStopLossDetails(stopLossPrice, stopLoss, trailingStopLoss);
-    
-
-    alert("Creating Trade");
- 
+    GatherTakeProfitDetails(takeProfitPrice, trailingTakePercent, takeProfit, trailingTakeProfit);
     $('#smartform').submit();
 }
 
 function GatherMarketDetails(tradeType, amount, price, baseAmount) {
-    alert("Entered Market Create");
     $(tradeType).val("market");
     $(amount).val($('#amount').val());
     $(price).val($('#lastprice').val());
@@ -323,5 +324,20 @@ function GatherStopLossDetails(stopLossPrice, stopLoss, trailingStopLoss) {
         }
     } else {
         $(stopLoss).val(false);
+    }
+}
+
+function GatherTakeProfitDetails(takeProfitPrice, trailingTakePercent, takeprofit, trailingTakeProfit) {
+    if (takeProfitBool == 1) {
+        $(takeprofit).val(true);
+        $(takeProfitPrice).val($('#price-take').val());
+        if (trailingTakeProfitBool == 1) {
+            $(trailingTakeProfit).val(true);
+            $(trailingTakePercent).val($('#trailingtakeprofitpercentbox').val());
+        } else {
+            $(trailingTakeProfit).val(false);
+        }
+    } else {
+        $(takeprofit).val(false);
     }
 }

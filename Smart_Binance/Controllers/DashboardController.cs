@@ -40,6 +40,7 @@ namespace Smart_Binance.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(DashboardViewModel dashboard)
         {
+            // Switch Trailing to Element Save - Debug Script Stack
             return RedirectToAction("Index");
         }
 
