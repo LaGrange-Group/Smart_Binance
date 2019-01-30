@@ -10,7 +10,7 @@ namespace Smart_Binance.Models.ViewModels
     public class DashboardViewModel
     {
         public List<BalanceModel> Balances { get; set; }
-
+        public BuildTrade BuildTrade { get; set; }
         public string Symbol { get; set; }
     }
 }

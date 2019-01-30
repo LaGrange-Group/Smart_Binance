@@ -91,6 +91,44 @@
         </div>
     </div>
 </div>
+<style>
+    #smarttradebutton {
+        width: 20%;
+        border-radius: 0.5em;
+        outline: none;
+        background: white;
+        color: black;
+        border: 1px solid black;
+    }
+
+        #smarttradebutton:hover {
+            background: #f5bc00;
+            color: white;
+            outline: none;
+        }
+
+    #smarttradebutton {
+    }
+</style>
+<div style="padding-top:5%">
+    <form id="smartform" asp-action="Index">
+        @Html.HiddenFor(m => m.BuildTrade.Market, new { id = "modelmarket" })
+        @Html.HiddenFor(m => m.BuildTrade.TradeType, new { id = "modeltradetype" })
+        @Html.HiddenFor(m => m.BuildTrade.Amount, new { id = "modelamount" })
+        @Html.HiddenFor(m => m.BuildTrade.Price, new { id = "modelprice" })
+        @Html.HiddenFor(m => m.BuildTrade.BaseAmount, new { id = "modelbaseamount" })
+        @Html.HiddenFor(m => m.BuildTrade.TakeProfitPrice, new { id = "modeltakeprofitprice" })
+        @Html.HiddenFor(m => m.BuildTrade.StopLossPrice, new { id = "modelstoplossprice" })
+        @Html.HiddenFor(m => m.BuildTrade.TrailingTakePercent, new { id = "modeltrailingtakepercent" })
+        @Html.HiddenFor(m => m.BuildTrade.StopLoss, new { id = "modelstoploss" })
+        @Html.HiddenFor(m => m.BuildTrade.TakeProfit, new { id = "modeltakeprofit" })
+        @Html.HiddenFor(m => m.BuildTrade.TrailingStopLoss, new { id = "modeltrailingstoploss" })
+        @Html.HiddenFor(m => m.BuildTrade.TrailingTakeProfit, new { id = "modeltrailingtakeprofit" })
+    </form>
+    <center>
+        <button id="smarttradebutton" type="button" class="btn btn-default">Create Smart Trade</button>
+    </center>
+</div>
 
 <style>
     .chart-btn {
@@ -110,7 +148,7 @@
         }
 </style>
 
-<div class="row" style="padding-top:10%">
+<div class="row" style="padding-top:5%">
     <div class="col-xs-12 container" style="width:100%">
         <center>
             <div style="padding-bottom:1em">

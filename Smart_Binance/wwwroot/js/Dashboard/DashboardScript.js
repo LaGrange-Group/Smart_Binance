@@ -6,6 +6,10 @@ var limitContainer = $("#LimitContainer");  //quoteProcedureComponentContainer
 var sellContainer = $("#SellContainer");  //quoteProcedureComponentContainer
 var stopLossContainer = $("#StopLossContainer");  //quoteProcedureComponentContainer
 var takeProfitContainer = $("#TakeProfitContainer");  //quoteProcedureComponentContainer
+var stopLossBool = 0;
+var takeProfitBool = 0;
+var trailingStopLossBool = 0;
+var trailingTakeProfitBool = 0;
   //quoteProcedureComponentContainer
 
 var defaultMarket = "----Select Market----";
@@ -154,6 +158,15 @@ function SetTakeTrue() {
 function SetTakeFalse() {
     $('#takeprofit').data('internalid', 0);
 }
+
+function FlipTrailingTake() {
+    if (trailingTakeProfitBool == 0) {
+        trailingTakeProfitBool = 1;
+    } else if (trailingTakeProfitBool == 1) {
+        trailingTakeProfitBool = 0;
+    }
+    alert("trailingTakeLossBool: " + trailingTakeProfitBool);
+}
 //------------------------------ Stop Loss Component
 
 var activateStop = document.getElementById("activatestop");
@@ -163,6 +176,8 @@ $('#activatestop').click(function () {
 
 function ActivateStop() {
     SetStopTrue();
+    var internVal = $('#stoploss').attr('internalid');
+    alert(internVal);
     var selectedTab = $("#tabtype li.active").attr("id");
     if ($(marketName).val() !== stockMarket && selectedTab == "markettab") {
         $.get("/Dashboard/LoadingGif", { typePass: "red" }, function (data) { sellContainer.html(data); });
@@ -215,12 +230,21 @@ function InitialTPStop() {
 };
 
 function SetStopTrue() {
-    $('#stoploss').data('internalid', 1);
+    stopLossBool = 1;
 }
 
 function SetStopFalse() {
-    $('#stoploss').data('internalid', 0);
+    stopLossBool = 0;
 }
+
+function FlipTrailingStop() {
+    if (trailingStopLossBool == 0) {
+        trailingStopLossBool = 1;
+    } else if (trailingStopLossBool == 1) {
+        trailingStopLossBool = 0;
+    }
+}
+
 // --------------------------- Reset Stop and Take
 
 function UpdateStopTakeContainer() {
@@ -228,4 +252,76 @@ function UpdateStopTakeContainer() {
     $.get("/Dashboard/ResetTakeProfit", function (data) { takeProfitContainer.html(data); });
     SetStopFalse();
     SetTakeFalse();
+}
+
+//$('#smarttradebutton').click(function () {
+//    CreateSmartTrade();
+//});
+
+function CreateSmartTrade() {
+    var market = document.getElementById('modelmarket');
+    var tradeType = document.getElementById('modeltradetype');
+    var amount = document.getElementById('modelamount');
+    var price = document.getElementById('modelprice');
+    var baseAmount = document.getElementById('modelbaseamount');
+    var takeProfitPrice = document.getElementById('modeltakeprofitprice');
+    var stopLossPrice = document.getElementById('modelstoplossprice');
+    var trailingTakePercent = document.getElementById('modeltrailingtakepercent');
+    var stopLoss = document.getElementById('modelstoploss');
+    var takeProfit = document.getElementById('modeltakeprofit');
+    var trailingStopLoss = document.getElementById('modeltrailingstoploss');
+    var trailingTakeProfit = document.getElementById('modeltrailingtakeprofit');
+    $(market).val($('#MarketName').val());
+    var selectedTab = $("#tabtype li.active").attr("id");
+
+    alert(selectedTab);
+
+    if (selectedTab == 'markettab') {
+        GatherMarketDetails(tradeType, amount, price, baseAmount);
+    } else if (selectedTab == 'limittab') {
+        GatherLimitDetails(tradeType, amount, price, baseAmount);
+    } else if (selectedTab == 'selltab') {
+        GatherSellDetails(tradeType, amount);
+    }
+
+    GatherStopLossDetails(stopLossPrice, stopLoss, trailingStopLoss);
+    
+
+    alert("Creating Trade");
+ 
+    $('#smartform').submit();
+}
+
+function GatherMarketDetails(tradeType, amount, price, baseAmount) {
+    alert("Entered Market Create");
+    $(tradeType).val("market");
+    $(amount).val($('#amount').val());
+    $(price).val($('#lastprice').val());
+    $(baseAmount).val($('#basetotal').val());
+}
+
+function GatherLimitDetails(tradeType, amount, price, baseAmount) {
+    $(tradeType).val("limit");
+    $(amount).val($('#amount-limit').val());
+    $(price).val($('#lastprice-limit').val());
+    $(baseAmount).val($('#basetotal-limit').val());
+}
+
+function GatherSellDetails(tradeType, amount) {
+    $(tradeType).val("sell");
+    $(amount).val($('#amount-sell').val());
+}
+
+function GatherStopLossDetails(stopLossPrice, stopLoss, trailingStopLoss) {
+    if (stopLossBool == 1) {
+        $(stopLoss).val(true);
+        $(stopLossPrice).val($('#price-stoploss').val());
+        if (trailingStopLossBool == 1) {
+            $(trailingStopLoss).val(true);
+        } else {
+            $(trailingStopLoss).val(false);
+        }
+    } else {
+        $(stopLoss).val(false);
+    }
 }

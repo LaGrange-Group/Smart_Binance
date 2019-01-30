@@ -37,7 +37,11 @@ namespace Smart_Binance.Controllers
             ViewBag.Markets = new SelectList(Symbols);
             return View(dashboard);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> Index(DashboardViewModel dashboard)
+        {
+            return RedirectToAction("Index");
+        }
 
 
         public IActionResult GetMySellViewComponent(string marketPass)

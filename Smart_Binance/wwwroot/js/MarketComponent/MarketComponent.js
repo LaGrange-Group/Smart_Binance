@@ -60,3 +60,10 @@ function baseCurrencyTotalColor(currentBaseAmount) {
 
 
 
+$('#smarttradebutton').click(function () {
+    var selectedTab = $("#tabtype li.active").attr("id");
+    if (selectedTab == 'markettab') {
+        alert("Triggered From Market Component");
+        CreateSmartTrade();
+    }
+});

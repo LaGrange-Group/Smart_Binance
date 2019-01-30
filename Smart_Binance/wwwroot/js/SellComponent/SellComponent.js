@@ -28,5 +28,13 @@ function removeActiveButton() {
     }
 }
 
+$('#smarttradebutton').click(function () {
+    var selectedTab = $("#tabtype li.active").attr("id");
+    if (selectedTab == 'selltab') {
+        alert("Triggered From Sell Component");
+        CreateSmartTrade();
+    }
+});
+
 
 
