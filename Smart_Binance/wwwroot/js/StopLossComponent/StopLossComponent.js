@@ -10,12 +10,14 @@ outputStop.oninput = function () {
     sliderStop.value = this.value;
     var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
+    CheckConditionValuesSell($('#price-stoploss').val(), "stop");
 }
 
 sliderStop.oninput = function () {
     outputStop.value = this.value;
     var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));
     priceBoxStop.value = newPrice.toFixed(priceDecimal);
+    CheckConditionValuesSell($('#price-stoploss').val(), "stop");
 }
 
 $(priceBoxStop).on('change', function () {
@@ -23,6 +25,7 @@ $(priceBoxStop).on('change', function () {
     var priceDiff = this.value - initialPrice;
     var percentGain = (priceDiff / initialPrice) * 100;
     outputStop.value = percentGain.toFixed(2);
+    CheckConditionValuesSell($('#price-stoploss').val(), "stop");
 });
 
 trailingStopBoolElement.onchange = function () {

@@ -14,6 +14,7 @@ $(".percTypeBtn").click(function () {
     $('#basetotal').css('color', 'black');
     $('#basetotal').val(baseAmountCalc);
     $('#amount').val((baseAmountCalc / lastPrice).toFixed(assetDecimalAmount));
+    baseCurrencyTotalCheck($('#basetotal').val());
 });
 
 $('body').on('change', '#basetotal', function () {
@@ -50,14 +51,6 @@ function removeActiveButton() {
     }
 }
 
-function baseCurrencyTotalColor(currentBaseAmount) {
-    if (currentBaseAmount > baseTotal || currentBaseAmount < minValue) {
-        $('#basetotal').css('color', 'red');
-    } else {
-        $('#basetotal').css('color', 'black');
-    }
-}
-
 function baseCurrencyTotalCheck(currentBaseAmount) {
     if (currentBaseAmount > baseTotal || currentBaseAmount < minValue) {
         $('#basetotal').css('color', 'red');
@@ -65,6 +58,12 @@ function baseCurrencyTotalCheck(currentBaseAmount) {
     } else {
         $('#basetotal').css('color', 'black');
         EnableCreateButton();
+    }
+    if (takeProfitBool == 1) {
+        CheckConditionValuesSell($('#price-take').val(), "take");
+    }
+    if (stopLossBool == 1) {
+        CheckConditionValuesSell($('#price-stoploss').val(), "stop");
     }
 }
 

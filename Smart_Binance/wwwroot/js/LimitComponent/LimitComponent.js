@@ -48,6 +48,12 @@ function baseCurrencyTotalCheck(currentBaseAmount) {
         $('#basetotal-limit').css('color', 'black');
         EnableCreateButton();
     }
+    if (takeProfitBool == 1) {
+        CheckConditionValuesSell($('#price-take').val(), "take");
+    }
+    if (stopLossBool == 1) {
+        CheckConditionValuesSell($('#price-stoploss').val(), "stop");
+    }
 }
 
 function removeActiveButton() {

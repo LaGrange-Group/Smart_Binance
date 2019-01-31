@@ -268,6 +268,37 @@ function ResetStopTakeValues(){
     trailingTakeProfitBool = 0;
 }
 
+function CheckConditionValuesSell(pricePass, typeFrom) {
+    var selectedTab = $("#tabtype li.active").attr("id");
+    var amount = 0;
+    if (selectedTab == "markettab") {
+        amount = $('#amount').val();
+    } else if (selectedTab == "limittab") {
+        amount = $('#amount-limit').val();
+    } else if (selectedTab == "selltab") {
+        amount = $('#amount-sell').val();
+    }
+    var conditionValue = pricePass * amount;
+    //alert("Min val: " + minValue + " Amount: " + amount + " Condition val: " + conditionValue);
+    if (conditionValue < minValue) {
+        DisableCreateButton();
+        if (typeFrom === "stop") {
+            $('#price-stoploss').css('color', 'red');
+        } else if (typeFrom === "take") {
+            $('#price-take').css('color', 'red');
+        }
+    } else {
+        EnableCreateButton();
+        if (typeFrom === "stop") {
+            $('#price-stoploss').css('color', 'black');
+        } else if (typeFrom === "take") {
+            $('#price-take').css('color', 'black');
+        }
+    }
+
+
+}
+
 //$('#smarttradebutton').click(function () {
 //    CreateSmartTrade();
 //});

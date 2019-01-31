@@ -1,13 +1,13 @@
-﻿
+﻿var amountSell = document.getElementById('amount-sell');
 $('#button-basepercent-100-sell').addClass("active");
 
 $(".percTypeBtn-sell").click(function () {
     $(".percTypeBtn-sell").removeClass("active");
     var percent = $(this).val();
-    $('#amount-sell').val((amount * percent).toFixed(decimalAmount));
+    $(amountSell).val((amount * percent).toFixed(decimalAmount));
 });
 
-$('#amount-sell').on('change', function () {
+$(amountSell).on('change', function () {
     removeActiveButton();
     if ($(this).val() > amount) {
         $(this).css('color', 'red');

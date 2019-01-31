@@ -10,12 +10,14 @@ output.oninput = function () {
     slider.value = this.value;
     var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));
     priceBox.value = newPrice.toFixed(priceDecimal);
+    CheckConditionValuesSell($('#price-take').val(), "take");
 }
 
 slider.oninput = function () {
     output.value = this.value;
     var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));
     priceBox.value = newPrice.toFixed(priceDecimal);
+    CheckConditionValuesSell($('#price-take').val(), "take");
 }
 
 $(priceBox).on('change', function () {
@@ -23,6 +25,7 @@ $(priceBox).on('change', function () {
     var priceDiff = this.value - initialPrice;
     var percentGain = (priceDiff / initialPrice) * 100;
     output.value = percentGain.toFixed(2);
+    CheckConditionValuesSell($('#price-take').val(), "take");
 });
 
 trailingTakeBoolElement.onchange = function () {
