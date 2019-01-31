@@ -15,6 +15,7 @@ namespace Smart_Binance.Actions.SmartTrade
 
             TokenViewModel viewModel = new TokenViewModel();
             viewModel.BaseType = BaseType(market);
+            viewModel.MinValue = MinTradeValue(viewModel.BaseType);
             string asset = market.Replace(viewModel.BaseType, "");
             using (var client = new BinanceClient())
             {
@@ -45,6 +46,21 @@ namespace Smart_Binance.Actions.SmartTrade
             end = end.Contains("ETH") ? "ETH" : end;
             end = end.Contains("XRP") ? "XRP" : end;
             return end;
+        }
+
+        private decimal MinTradeValue(string type)
+        {
+            switch (type)
+            {
+                case "BTC":
+                    return 0.001m;
+                case "BNB":
+                    return 1m;
+                case "ETH":
+                    return 0.01m;
+                default:
+                    return 10m;
+            }
         }
     }
 }

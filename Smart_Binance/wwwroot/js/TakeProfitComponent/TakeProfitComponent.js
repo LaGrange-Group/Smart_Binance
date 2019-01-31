@@ -29,7 +29,6 @@ $(priceBox).on('change', function () {
 });
 
 trailingTakeBoolElement.onchange = function () {
-    alert("Noticed Take Bool Change");
     FlipTrailingTake();
 }
 

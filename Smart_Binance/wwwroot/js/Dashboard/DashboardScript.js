@@ -10,6 +10,7 @@ var stopLossBool = 0;
 var takeProfitBool = 0;
 var trailingStopLossBool = 0;
 var trailingTakeProfitBool = 0;
+DisableCreateButton();
   //quoteProcedureComponentContainer
 
 var defaultMarket = "----Select Market----";
@@ -88,12 +89,110 @@ $(".percTypeBtn").click(function () {
     var percent = $(this).val();
 });
 
+
+// --------------------------- Reset Stop and Take
+
+function UpdateStopTakeContainer() {
+    $.get("/Dashboard/ResetStopLoss", function (data) { stopLossContainer.html(data); });
+    $.get("/Dashboard/ResetTakeProfit", function (data) { takeProfitContainer.html(data); });
+    SetStopFalse();
+    SetTakeFalse();
+    ResetStopTakeValues();
+}
+
+function ResetStopTakeValues() {
+    stopLossBool = 0;
+    takeProfitBool = 0;
+    trailingStopLossBool = 0;
+    trailingTakeProfitBool = 0;
+}
+
+// ---------------------------------- Utility Functions
+
 function DisableCreateButton() {
     $("#smarttradebutton").attr("disabled", true);
 }
 
 function EnableCreateButton() {
     $("#smarttradebutton").attr("disabled", false);
+}
+
+function CheckConditionValuesSell(pricePass, typeFrom) {
+    var selectedTab = $("#tabtype li.active").attr("id");
+    var amountGrab = 0;
+    var baseCurrencyAmount = 0;
+    if (selectedTab == "markettab") {
+        amountGrab = $('#amount').val();
+    } else if (selectedTab == "limittab") {
+        amountGrab = $('#amount-limit').val();
+    } else if (selectedTab == "selltab") {
+        amountGrab = $('#amount-sell').val();
+    }
+    var conditionValue = pricePass * amountGrab;
+    //alert("Min val: " + minValue + " Amount: " + amount + " Condition val: " + conditionValue);
+    if (conditionValue < minValue) {
+        DisableCreateButton();
+        if (typeFrom === "stop") {
+            $('#price-stoploss').css('color', 'red');
+        } else if (typeFrom === "take") {
+            $('#price-take').css('color', 'red');
+        }
+    } else {
+        EnableCreateButton();
+        if (typeFrom === "stop") {
+            $('#price-stoploss').css('color', 'black');
+        } else if (typeFrom === "take") {
+            $('#price-take').css('color', 'black');
+        }
+    }
+    if (takeProfitBool === 1 && stopLossBool === 1) {
+        ConfirmBothTakeStopValidValues();
+    }
+    if (selectedTab == "markettab") {
+        baseCurrencyAmount = $('#basetotal').val();
+        if (baseCurrencyAmount < minValue || baseCurrencyAmount > baseTotal) {
+            DisableCreateButton();
+        }
+    } else if (selectedTab == "limittab") {
+        baseCurrencyAmount = $('#basetotal-limit').val();
+        if (baseCurrencyAmount < minValue || baseCurrencyAmount > baseTotal) {
+            DisableCreateButton();
+        }
+    } else if (selectedTab == "selltab") {
+        if (amountGrab > amount) {
+            DisableCreateButton();
+        }
+    }
+}
+
+function ConfirmBothTakeStopValidValues() {
+    var selectedTab = $("#tabtype li.active").attr("id");
+    var amount = 0;
+    if (selectedTab == "markettab") {
+        amount = $('#amount').val();
+    } else if (selectedTab == "limittab") {
+        amount = $('#amount-limit').val();
+    } else if (selectedTab == "selltab") {
+        amount = $('#amount-sell').val();
+    }
+    var takePriceGrab = $('#price-take').val();
+    var stopPriceGrab = $('#price-stoploss').val();
+    var takeConditionValue = takePriceGrab * amount;
+    var stopConditionValue = stopPriceGrab * amount;
+    if (takeConditionValue < minValue || stopConditionValue < minValue) {
+        DisableCreateButton();
+    } else {
+        EnableCreateButton();
+    }
+}
+
+function CallCheckCondtionFunc() {
+    if (takeProfitBool == 1) {
+        CheckConditionValuesSell($('#price-take').val(), "take");
+    }
+    if (stopLossBool == 1) {
+        CheckConditionValuesSell($('#price-stoploss').val(), "stop");
+    }
 }
 
 //------------------------------ Take Profit Component
@@ -171,7 +270,6 @@ function FlipTrailingTake() {
     } else if (trailingTakeProfitBool == 1) {
         trailingTakeProfitBool = 0;
     }
-    alert("trailingTakeLossBool: " + trailingTakeProfitBool);
 }
 //------------------------------ Stop Loss Component
 
@@ -251,53 +349,6 @@ function FlipTrailingStop() {
     }
 }
 
-// --------------------------- Reset Stop and Take
-
-function UpdateStopTakeContainer() {
-    $.get("/Dashboard/ResetStopLoss", function (data) { stopLossContainer.html(data); });
-    $.get("/Dashboard/ResetTakeProfit", function (data) { takeProfitContainer.html(data); });
-    SetStopFalse();
-    SetTakeFalse();
-    ResetStopTakeValues();
-}
-
-function ResetStopTakeValues(){
-    stopLossBool = 0;
-    takeProfitBool = 0;
-    trailingStopLossBool = 0;
-    trailingTakeProfitBool = 0;
-}
-
-function CheckConditionValuesSell(pricePass, typeFrom) {
-    var selectedTab = $("#tabtype li.active").attr("id");
-    var amount = 0;
-    if (selectedTab == "markettab") {
-        amount = $('#amount').val();
-    } else if (selectedTab == "limittab") {
-        amount = $('#amount-limit').val();
-    } else if (selectedTab == "selltab") {
-        amount = $('#amount-sell').val();
-    }
-    var conditionValue = pricePass * amount;
-    //alert("Min val: " + minValue + " Amount: " + amount + " Condition val: " + conditionValue);
-    if (conditionValue < minValue) {
-        DisableCreateButton();
-        if (typeFrom === "stop") {
-            $('#price-stoploss').css('color', 'red');
-        } else if (typeFrom === "take") {
-            $('#price-take').css('color', 'red');
-        }
-    } else {
-        EnableCreateButton();
-        if (typeFrom === "stop") {
-            $('#price-stoploss').css('color', 'black');
-        } else if (typeFrom === "take") {
-            $('#price-take').css('color', 'black');
-        }
-    }
-
-
-}
 
 //$('#smarttradebutton').click(function () {
 //    CreateSmartTrade();
