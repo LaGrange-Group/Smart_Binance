@@ -49,6 +49,90 @@ namespace Smart_Binance.Actions.SmartTrade
             }
         }
 
+        public Trade Limit(Trade trade, decimal price)
+        {
+            BinanceClient.SetDefaultOptions(new BinanceClientOptions()
+            {
+                ApiCredentials = new ApiCredentials(api.Key, api.Secret),
+                LogVerbosity = LogVerbosity.Debug,
+                LogWriters = new List<TextWriter> { Console.Out }
+            });
+            using (var client = new BinanceClient())
+            {
+                var limitOrder = client.PlaceOrder(build.Market, OrderSide.Sell, OrderType.Limit, build.Amount, null, price, TimeInForce.GoodTillCancel);
+                if (limitOrder.Success)
+                {
+                    trade.TakeProfitPrice = price;
+                    trade.Amount = build.Amount;
+                    trade.OrderId = limitOrder.Data.OrderId;
+                    trade.Success = true;
+                    return trade;
+                }
+                else
+                {
+                    var error = limitOrder.Error;
+                    trade.Success = false;
+                    return trade;
+                }
+            }
+        }
+
+        public Trade LimitStop(Trade trade, decimal price)
+        {
+            BinanceClient.SetDefaultOptions(new BinanceClientOptions()
+            {
+                ApiCredentials = new ApiCredentials(api.Key, api.Secret),
+                LogVerbosity = LogVerbosity.Debug,
+                LogWriters = new List<TextWriter> { Console.Out }
+            });
+            using (var client = new BinanceClient())
+            {
+                var limitOrder = client.PlaceOrder(build.Market, OrderSide.Sell, OrderType.StopLossLimit, build.Amount, null, price, TimeInForce.GoodTillCancel, price);
+                if (limitOrder.Success)
+                {
+                    trade.StopLossPrice = price;
+                    trade.Amount = build.Amount;
+                    trade.OrderId = limitOrder.Data.OrderId;
+                    trade.Success = true;
+                    return trade;
+                }
+                else
+                {
+                    var error = limitOrder.Error;
+                    trade.Success = false;
+                    return trade;
+                }
+            }
+        }
+
+        public async Task<Trade> LimitStopAsync(Trade trade, decimal price)
+        {
+            BinanceClient.SetDefaultOptions(new BinanceClientOptions()
+            {
+                ApiCredentials = new ApiCredentials(api.Key, api.Secret),
+                LogVerbosity = LogVerbosity.Debug,
+                LogWriters = new List<TextWriter> { Console.Out }
+            });
+            using (var client = new BinanceClient())
+            {
+                var limitOrder = await client.PlaceOrderAsync(build.Market, OrderSide.Sell, OrderType.StopLossLimit, build.Amount, null, price, TimeInForce.GoodTillCancel, price);
+                if (limitOrder.Success)
+                {
+                    trade.StopLossPrice = price;
+                    trade.Amount = build.Amount;
+                    trade.OrderId = limitOrder.Data.OrderId;
+                    trade.Success = true;
+                    return trade;
+                }
+                else
+                {
+                    var error = limitOrder.Error;
+                    trade.Success = false;
+                    return trade;
+                }
+            }
+        }
+
         public async Task<Trade> MarketAsync(Trade trade)
         {
             BinanceClient.SetDefaultOptions(new BinanceClientOptions()

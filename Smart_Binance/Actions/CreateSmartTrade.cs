@@ -75,6 +75,8 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
                         Scan scan = new Scan(build);
                         trade = await scan.ConclusionTakeProfitAsync(trade);
                         if (trade.Success)
@@ -88,7 +90,6 @@ namespace Smart_Binance.Actions
                             result.Success = true;
                             TradeResultDB resultDB = new TradeResultDB();
                             resultDB.Add(result);
-                            TradeDB tradeDB = new TradeDB();
                             await tradeDB.Update(trade);
                         }
                     }
@@ -98,17 +99,69 @@ namespace Smart_Binance.Actions
                 {
                     // Take Profit
                     // Trailing Take Profit
+                    int priceDecimal = BitConverter.GetBytes(decimal.GetBits(trade.TakeProfitPrice)[3])[2];
+                    decimal tempTakeProfitPrice = decimal.Round(build.TakeProfitPrice * 2, priceDecimal);
+                    Sell sell = new Sell(build, api);
+                    trade = await sell.LimitAsync(trade, tempTakeProfitPrice);
+                    if (trade.Success)
+                    {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
+                        Scan scan = new Scan(build, api);
+                        TradeResult result = scan.TrailingTakeProfit(trade);
+                        if (result.Success)
+                        {
+                            TradeResultDB resultDB = new TradeResultDB();
+                            resultDB.Add(result);
+                            trade.Status = false;
+                            await tradeDB.Update(trade);
+                        }
+                    }
 
                 }
                 else if (build.StopLoss && !build.TrailingStopLoss && !build.TakeProfit)
                 {
                     // Stop Loss
-
+                    Sell sell = new Sell(build, api);
+                    trade = await sell.LimitStopAsync(trade, build.StopLossPrice);
+                    if (trade.Success)
+                    {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
+                        Scan scan = new Scan(build, api);
+                        TradeResult result = await scan.ConclusionStopLossAsync(trade);
+                        if (result.Success)
+                        {
+                            TradeResultDB resultDB = new TradeResultDB();
+                            resultDB.Add(result);
+                            trade.Status = false;
+                            await tradeDB.Update(trade);
+                        }
+                    }
                 }
                 else if (build.StopLoss && build.TrailingStopLoss && !build.TakeProfit)
                 {
                     // Stop Loss
                     // Trailing Stop Loss
+                    Sell sell = new Sell(build, api);
+                    trade = await sell.LimitStopAsync(trade, trade.StopLossPrice);
+                    if (trade.Success)
+                    {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
+                        var trailingStop = Task.Run(async () =>
+                        {
+                            Scan scan = new Scan(build, api);
+                            TradeResult result = scan.TrailingStopLoss(trade);
+                            if (result.Success)
+                            {
+                                TradeResultDB resultDB = new TradeResultDB();
+                                resultDB.Add(result);
+                                trade.Status = false;
+                                await tradeDB.Update(trade);
+                            }
+                        });
+                    }
 
                 }
                 else if (build.StopLoss && build.TakeProfit && !build.TrailingStopLoss && !build.TrailingTakeProfit)
@@ -123,7 +176,7 @@ namespace Smart_Binance.Actions
                         await tradeDB.Update(trade);
                         var scanStop = Task.Run(async () => {
                             Scan scan = new Scan(build, api);
-                            TradeResult result = scan.StopLoss(trade);
+                            TradeResult result = scan.MiddleOrderFlip(trade);
                             if (result.Success)
                             {
                                 TradeResultDB resultDB = new TradeResultDB();
@@ -139,6 +192,24 @@ namespace Smart_Binance.Actions
                     // Stop Loss
                     // Take Profit
                     // Trailing Stop Loss
+                    Sell sell = new Sell(build, api);
+                    trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
+                    if (trade.Success)
+                    {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
+                        var scanStop = Task.Run(async () => {
+                            Scan scan = new Scan(build, api);
+                            TradeResult result = scan.MiddleOrderFlip(trade);
+                            if (result.Success)
+                            {
+                                TradeResultDB resultDB = new TradeResultDB();
+                                resultDB.Add(result);
+                                trade.Status = false;
+                                await tradeDB.Update(trade);
+                            }
+                        });
+                    }
 
                 }
                 else if (build.StopLoss && build.TakeProfit && !build.TrailingStopLoss && build.TrailingTakeProfit)
@@ -146,6 +217,24 @@ namespace Smart_Binance.Actions
                     // Stop Loss
                     // Take Profit
                     // Trailing Take Profit
+                    Sell sell = new Sell(build, api);
+                    trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
+                    if (trade.Success)
+                    {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
+                        var scanStop = Task.Run(async () => {
+                            Scan scan = new Scan(build, api);
+                            TradeResult result = scan.MiddleOrderFlip(trade);
+                            if (result.Success)
+                            {
+                                TradeResultDB resultDB = new TradeResultDB();
+                                resultDB.Add(result);
+                                trade.Status = false;
+                                await tradeDB.Update(trade);
+                            }
+                        });
+                    }
 
                 }
                 else if (build.StopLoss && build.TakeProfit && !build.TrailingStopLoss && build.TrailingTakeProfit)
@@ -154,6 +243,24 @@ namespace Smart_Binance.Actions
                     // Take Profit
                     // Trailing Stop Loss
                     // Trailing Take Profit
+                    Sell sell = new Sell(build, api);
+                    trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
+                    if (trade.Success)
+                    {
+                        TradeDB tradeDB = new TradeDB();
+                        await tradeDB.Update(trade);
+                        var scanStop = Task.Run(async () => {
+                            Scan scan = new Scan(build, api);
+                            TradeResult result = scan.MiddleOrderFlip(trade);
+                            if (result.Success)
+                            {
+                                TradeResultDB resultDB = new TradeResultDB();
+                                resultDB.Add(result);
+                                trade.Status = false;
+                                await tradeDB.Update(trade);
+                            }
+                        });
+                    }
 
                 }
             }); 
