@@ -225,6 +225,68 @@ namespace Smart_Binance.Data.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Smart_Binance.Models.Trade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<decimal>("BuyPrice");
+
+                    b.Property<int>("CustomerId");
+
+                    b.Property<bool>("LimitPending");
+
+                    b.Property<string>("Market");
+
+                    b.Property<long>("OrderId");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.Property<bool>("Status");
+
+                    b.Property<decimal>("StopLossPrice");
+
+                    b.Property<bool>("Success");
+
+                    b.Property<decimal>("TakeProfitPrice");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Trades");
+                });
+
+            modelBuilder.Entity("Smart_Binance.Models.TradeResult", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<decimal>("PercentDiff");
+
+                    b.Property<long>("SellOrderId");
+
+                    b.Property<decimal>("SellPrice");
+
+                    b.Property<bool>("Success");
+
+                    b.Property<int>("TradeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TradeId");
+
+                    b.ToTable("TradeResults");
+                });
+
             modelBuilder.Entity("Smart_Binance.Models.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -290,6 +352,22 @@ namespace Smart_Binance.Data.Migrations
                     b.HasOne("Smart_Binance.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Smart_Binance.Models.Trade", b =>
+                {
+                    b.HasOne("Smart_Binance.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Smart_Binance.Models.TradeResult", b =>
+                {
+                    b.HasOne("Smart_Binance.Models.Trade", "Trade")
+                        .WithMany()
+                        .HasForeignKey("TradeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

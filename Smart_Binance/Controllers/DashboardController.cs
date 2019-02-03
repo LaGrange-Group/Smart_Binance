@@ -33,7 +33,7 @@ namespace Smart_Binance.Controllers
             dashboard.Balances = await balances.GetBalanceValues();
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
-            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC", "BTCUSDT", "XZCXRP", "XRPUSDT", "WAVESETH", "ADABNB" };
+            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC", "BTCUSDT", "XZCXRP", "XRPUSDT", "WAVESETH", "ADABNB", "DLTBTC", "VIBEBTC" };
             ViewBag.Markets = new SelectList(Symbols);
             return View(dashboard);
         }
@@ -41,6 +41,11 @@ namespace Smart_Binance.Controllers
         public async Task<IActionResult> Index(DashboardViewModel dashboard)
         {
             // Switch Trailing to Element Save - Debug Script Stack
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Where(c => c.UserId == userId).Single();
+            CreateSmartTrade smartTrade = new CreateSmartTrade(dashboard.BuildTrade, customer);
+            await smartTrade.InitializeTrade();
+            await smartTrade.ElicitBuyOrSell();
             return RedirectToAction("Index");
         }
 
