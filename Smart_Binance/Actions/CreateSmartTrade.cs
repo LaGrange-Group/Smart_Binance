@@ -237,7 +237,7 @@ namespace Smart_Binance.Actions
                     }
 
                 }
-                else if (build.StopLoss && build.TakeProfit && !build.TrailingStopLoss && build.TrailingTakeProfit)
+                else if (build.StopLoss && build.TakeProfit && build.TrailingStopLoss && build.TrailingTakeProfit)
                 {
                     // Stop Loss
                     // Take Profit
@@ -320,6 +320,10 @@ namespace Smart_Binance.Actions
                 await tradeDB.Update(trade);
                 await ElicitConditions();
                 return;
+            }
+            else
+            {
+
             }
             // Add Error Notification
             return;

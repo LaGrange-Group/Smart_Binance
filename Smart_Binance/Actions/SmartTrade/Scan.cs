@@ -28,7 +28,7 @@ namespace Smart_Binance.Actions.SmartTrade
             bool trailingTake = false;
             int priceDecimal = BitConverter.GetBytes(decimal.GetBits(trade.StopLossPrice)[3])[2];
             decimal prevStopLossPrice = build.StopLossPrice;
-            decimal percentStop = decimal.Round((build.StopLossPrice - build.Price) / build.Price * -1, 2);
+            decimal percentStop = decimal.Round((build.StopLossPrice - build.Price) / build.Price * -1m, 2);
             TradeResult result = new TradeResult();
             using (var client = new BinanceSocketClient())
             {
@@ -36,7 +36,7 @@ namespace Smart_Binance.Actions.SmartTrade
                 {
                     if (build.TrailingStopLoss)
                     {
-                        if (((trade.StopLossPrice - data.Data.High) / data.Data.High) > percentStop)
+                        if (((trade.StopLossPrice - data.Data.High) / data.Data.High * -1) > percentStop)
                         {
                             prevStopLossPrice = trade.StopLossPrice;
                             trade.StopLossPrice = decimal.Round(data.Data.High - (data.Data.High * percentStop), priceDecimal);
@@ -103,7 +103,8 @@ namespace Smart_Binance.Actions.SmartTrade
             }
             if (trailingTake == true)
             {
-                trade.StopLossPrice = decimal.Round(build.TakeProfitPrice - (build.TakeProfitPrice * (build.TrailingTakePercent / 100)), priceDecimal);
+                decimal trailingTakePerc = build.TrailingTakePercent < 0 ? build.TrailingTakePercent * -1m : build.TrailingTakePercent;
+                trade.StopLossPrice = decimal.Round(build.TakeProfitPrice - (build.TakeProfitPrice * (trailingTakePerc / 100)), priceDecimal);
                 return TrailingStopLoss(trade);
             }
             else
@@ -118,20 +119,17 @@ namespace Smart_Binance.Actions.SmartTrade
             bool active = true;
             int priceDecimal = BitConverter.GetBytes(decimal.GetBits(trade.StopLossPrice)[3])[2];
             decimal prevStopLossPrice = build.StopLossPrice;
-            decimal percentStop = decimal.Round((build.StopLossPrice - build.Price) / build.Price * -1, 2);
+            decimal percentStop = decimal.Round((build.StopLossPrice - build.Price) / build.Price * -1, 3);
             TradeResult result = new TradeResult();
             using (var client = new BinanceSocketClient())
             {
                 var successKline = client.SubscribeToKlineStream(build.Market, KlineInterval.OneMinute, (data) =>
                 {
-                    if (((trade.StopLossPrice - data.Data.High) / data.Data.High) > percentStop)
+                    decimal newPercentDiff = decimal.Round((trade.StopLossPrice - data.Data.High) / data.Data.High, 3);
+                    newPercentDiff = newPercentDiff < 0 ? newPercentDiff * -1m : newPercentDiff;
+                    if (newPercentDiff > percentStop)
                     {
-                        prevStopLossPrice = trade.StopLossPrice;
                         trade.StopLossPrice = decimal.Round(data.Data.High - (data.Data.High * percentStop), priceDecimal);
-                    }
-
-                    if (trade.StopLossPrice > prevStopLossPrice)
-                    {
                         Cancel cancel = new Cancel();
                         if (cancel.Trade(trade))
                         {
@@ -186,7 +184,8 @@ namespace Smart_Binance.Actions.SmartTrade
 
                 }
             }
-            trade.StopLossPrice = decimal.Round(build.TakeProfitPrice - (build.TakeProfitPrice * (build.TrailingTakePercent / 100)), priceDecimal);
+            decimal trailingTakePerc = build.TrailingTakePercent < 0 ? build.TrailingTakePercent * -1m : build.TrailingTakePercent;
+            trade.StopLossPrice = decimal.Round(build.TakeProfitPrice - (build.TakeProfitPrice * (trailingTakePerc / 100)), priceDecimal);
             return TrailingStopLoss(trade);
         }
 

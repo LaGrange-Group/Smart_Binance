@@ -151,6 +151,10 @@ namespace Smart_Binance.Actions.SmartTrade
                     trade.Success = true;
                     return trade;
                 }
+                else
+                {
+                    var error = marketOrder.Error;
+                }
             }
             return null;
         }

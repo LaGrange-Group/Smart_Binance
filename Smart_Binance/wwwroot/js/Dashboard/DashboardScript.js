@@ -375,7 +375,7 @@ function CreateSmartTrade() {
     } else if (selectedTab == 'limittab') {
         GatherLimitDetails(tradeType, amount, price, baseAmount);
     } else if (selectedTab == 'selltab') {
-        GatherSellDetails(tradeType, amount);
+        GatherSellDetails(tradeType, amount, price);
     }
     GatherStopLossDetails(stopLossPrice, stopLoss, trailingStopLoss);
     GatherTakeProfitDetails(takeProfitPrice, trailingTakePercent, takeProfit, trailingTakeProfit);
@@ -396,8 +396,9 @@ function GatherLimitDetails(tradeType, amount, price, baseAmount) {
     $(baseAmount).val($('#basetotal-limit').val());
 }
 
-function GatherSellDetails(tradeType, amount) {
+function GatherSellDetails(tradeType, amount, price) {
     $(tradeType).val("sell");
+    $(price).val($('#lastprice-sell').val());
     $(amount).val($('#amount-sell').val());
 }
 
