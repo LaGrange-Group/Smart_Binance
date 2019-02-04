@@ -2,6 +2,7 @@
 var marketName = document.getElementById('#MarketName');
 var activateStop = document.getElementById("activatestop");
 var stockMarket = "----Select Market----";
+DisableActivateStopTake();
 $(activateStop).click(function () {
     ActivateStop();
 });

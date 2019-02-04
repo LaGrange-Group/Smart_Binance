@@ -11,10 +11,11 @@ var takeProfitBool = 0;
 var trailingStopLossBool = 0;
 var trailingTakeProfitBool = 0;
 DisableCreateButton();
-  //quoteProcedureComponentContainer
+ //quoteProcedureComponentContainer
 
 var defaultMarket = "----Select Market----";
 var refreshComponent = function (tab) {
+
     if (tab === "markettab") {
         var percentBase = '';
         $('#PercentTypeGroup .active').each(function () {
@@ -36,6 +37,8 @@ var refreshComponent = function (tab) {
 };
 $(function () {
     $("#MarketName").on('change', function () {
+        DisableMarketSelect();
+        DisableActivateStopTake();
         var selectedTab = $("#tabtype li.active").attr("id");
         UpdateStopTakeContainer();
         refreshComponent(selectedTab);
@@ -43,6 +46,8 @@ $(function () {
 })
 
 $('#tabtype li').click(function () {
+    if ($('#MarketName').val() !== "----Select Market----")
+        DisableMarketSelect();
     var selectedTab = $(this).attr('id');
     UpdateStopTakeContainer();
     if ($('#MarketName').val() !== defaultMarket && selectedTab == "limittab") {
@@ -108,6 +113,24 @@ function ResetStopTakeValues() {
 }
 
 // ---------------------------------- Utility Functions
+
+function DisableActivateStopTake() {
+    $("#activatestop").attr("disabled", true);
+    $("#activatetake").attr("disabled", true);
+}
+
+function EnableActivateStopTake() {
+    $("#activatestop").attr("disabled", false);
+    $("#activatetake").attr("disabled", false);
+}
+
+function DisableMarketSelect() {
+    $("#MarketName").attr("disabled", true);
+}
+
+function EnableMarketSelect() {
+    $("#MarketName").attr("disabled", false);
+}
 
 function DisableCreateButton() {
     $("#smarttradebutton").attr("disabled", true);
