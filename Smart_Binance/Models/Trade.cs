@@ -25,5 +25,7 @@ namespace Smart_Binance.Models
         public Customer Customer { get; set; }
         public bool LimitPending { get; set; } 
         public bool Success { get; set; }
+        public string DisplayType { get; set; }
+        public bool IsTrailing { get; set; }
     }
 }

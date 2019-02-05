@@ -1,0 +1,21 @@
+﻿@model Smart_Binance.Models.ViewModels.SmartTradesViewModel
+@{
+    ViewData["Title"] = "Smart Trades";
+}
+
+@foreach (Trade trade in Model.Trades)
+{
+    if (trade.DisplayType == "TPSL")
+    {
+        @await Component.InvokeAsync("TPSL", new { id = trade.Id })
+    }
+    else
+    {
+        <div style="width:100%; height:150px">
+            <center>
+                @await Component.InvokeAsync("LoadingSmartTradeVC")
+            </center>
+        </div>
+    }
+
+}
