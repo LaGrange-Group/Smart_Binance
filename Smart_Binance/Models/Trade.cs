@@ -12,9 +12,13 @@ namespace Smart_Binance.Models
         [Key]
         public int Id { get; set; }
         public string Market { get; set; }
+        [Column(TypeName = "decimal(28, 18)")]
         public decimal Amount { get; set; }
+        [Column(TypeName = "decimal(28, 18)")]
         public decimal BuyPrice { get; set; }
+        [Column(TypeName = "decimal(28, 18)")]
         public decimal StopLossPrice { get; set; }
+        [Column(TypeName = "decimal(28, 18)")]
         public decimal TakeProfitPrice { get; set; }
         public long OrderId { get; set; }
         public DateTime StartTime { get; set; }

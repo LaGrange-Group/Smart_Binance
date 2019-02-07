@@ -231,9 +231,11 @@ namespace Smart_Binance.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(28, 18)");
 
-                    b.Property<decimal>("BuyPrice");
+                    b.Property<decimal>("BuyPrice")
+                        .HasColumnType("decimal(28, 18)");
 
                     b.Property<int>("CustomerId");
 
@@ -251,11 +253,13 @@ namespace Smart_Binance.Data.Migrations
 
                     b.Property<bool>("Status");
 
-                    b.Property<decimal>("StopLossPrice");
+                    b.Property<decimal>("StopLossPrice")
+                        .HasColumnType("decimal(28, 18)");
 
                     b.Property<bool>("Success");
 
-                    b.Property<decimal>("TakeProfitPrice");
+                    b.Property<decimal>("TakeProfitPrice")
+                        .HasColumnType("decimal(28, 18)");
 
                     b.Property<string>("Type");
 
@@ -274,11 +278,13 @@ namespace Smart_Binance.Data.Migrations
 
                     b.Property<DateTime>("EndTime");
 
-                    b.Property<decimal>("PercentDiff");
+                    b.Property<decimal>("PercentDiff")
+                        .HasColumnType("decimal(10, 10)");
 
                     b.Property<long>("SellOrderId");
 
-                    b.Property<decimal>("SellPrice");
+                    b.Property<decimal>("SellPrice")
+                        .HasColumnType("decimal(10, 10)");
 
                     b.Property<bool>("Success");
 

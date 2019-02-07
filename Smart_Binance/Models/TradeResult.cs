@@ -11,8 +11,10 @@ namespace Smart_Binance.Models
     {
         [Key]
         public int Id { get; set; }
+        [Column(TypeName = "decimal(10, 10)")]
         public decimal SellPrice { get; set; }
         public long SellOrderId { get; set; }
+        [Column(TypeName = "decimal(10, 10)")]
         public decimal PercentDiff { get; set; }
         public DateTime EndTime { get; set; }
         [ForeignKey("Trade")]

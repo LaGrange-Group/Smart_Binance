@@ -172,6 +172,7 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
+                        trade.DisplayType = "TPSL";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.Update(trade);
                         var scanStop = Task.Run(async () => {

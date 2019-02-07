@@ -81,7 +81,7 @@ $('#tabtype li').click(function () {
 $(function () {
     $('#button-basepercent-25').addClass('active');
     $('#button-basepercent-25-limit').addClass('active');
-})
+});
 
 
 $(".percTypeBtn-limit").click(function () {
