@@ -24,6 +24,9 @@ namespace Smart_Binance.Models
         public DateTime StartTime { get; set; }
         public bool Status { get; set; }
         public string Type { get; set; }
+        public int AmountDecimal { get; set; }
+        public int PriceDecimal { get; set; }
+        public int BasePriceDecimal { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }

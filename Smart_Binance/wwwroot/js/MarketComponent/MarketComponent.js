@@ -75,3 +75,7 @@ $('#smarttradebutton').click(function () {
         CreateSmartTrade();
     }
 });
+
+function ReturnMarketAssetDecimal() {
+    return assetDecimalAmount;
+}

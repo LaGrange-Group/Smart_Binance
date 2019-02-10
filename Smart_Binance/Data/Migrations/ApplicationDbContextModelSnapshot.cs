@@ -234,6 +234,10 @@ namespace Smart_Binance.Data.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(28, 18)");
 
+                    b.Property<int>("AmountDecimal");
+
+                    b.Property<int>("BasePriceDecimal");
+
                     b.Property<decimal>("BuyPrice")
                         .HasColumnType("decimal(28, 18)");
 
@@ -248,6 +252,8 @@ namespace Smart_Binance.Data.Migrations
                     b.Property<string>("Market");
 
                     b.Property<long>("OrderId");
+
+                    b.Property<int>("PriceDecimal");
 
                     b.Property<DateTime>("StartTime");
 

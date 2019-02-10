@@ -9,8 +9,12 @@
     var baseAmount = '@Model.BaseAmount';
     var lastPrice = '@Model.LastPrice';
     var amount = '@Model.Amount';
-    var baseDecimalAmount = '@Model.BaseDecimalAmount';
-    var assetDecimalAmount = '@Model.AssetDecimalAmount';
+    baseDecimalAmount = '@Model.BaseDecimalAmount';
+    priceDecimalAmount = '@Model.PriceDecimalAmount';
+    assetDecimalAmount = '@Model.AssetDecimalAmount';
+    alert("Base: " + baseDecimalAmount);
+    alert("Amount: " + assetDecimalAmount);
+    alert("Price: " + priceDecimalAmount);
     var minValue = '@Model.MinValue';
     EnableMarketSelect();
     EnableActivateStopTake();

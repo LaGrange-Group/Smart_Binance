@@ -26,11 +26,11 @@ namespace Smart_Binance.ViewComponents.TradeTypes
             GetTrade getTrade = new GetTrade();
             if (tradeView.Trade != null)
             {
-                tradeView.Trade.Amount = decimal.Round(tradeView.Trade.Amount, amountDecimal);
-                tradeView.Trade.TakeProfitPrice = decimal.Round(tradeView.Trade.TakeProfitPrice, priceDecimal);
-                tradeView.Trade.StopLossPrice = decimal.Round(tradeView.Trade.StopLossPrice, priceDecimal);
-                tradeView.Trade.BuyPrice = decimal.Round(tradeView.Trade.BuyPrice, priceDecimal);
-                tradeView.CurrentPrice = decimal.Round(await getTrade.CurrentPrice(tradeView.Trade.Market), 8);
+                tradeView.Trade.Amount = decimal.Round(tradeView.Trade.Amount, tradeView.Trade.AmountDecimal);
+                tradeView.Trade.TakeProfitPrice = decimal.Round(tradeView.Trade.TakeProfitPrice, tradeView.Trade.PriceDecimal);
+                tradeView.Trade.StopLossPrice = decimal.Round(tradeView.Trade.StopLossPrice, tradeView.Trade.PriceDecimal);
+                tradeView.Trade.BuyPrice = decimal.Round(tradeView.Trade.BuyPrice, tradeView.Trade.PriceDecimal);
+                tradeView.CurrentPrice = decimal.Round(await getTrade.CurrentPrice(tradeView.Trade.Market), tradeView.Trade.PriceDecimal);
                 tradeView.CurrentPercentage = decimal.Round((tradeView.CurrentPrice - tradeView.Trade.BuyPrice) / tradeView.Trade.BuyPrice * 100, 2);
                 tradeView.BelowZeroPercent = tradeView.CurrentPercentage < 0 ? true : false;
                 tradeView.VisualPercentage = getTrade.VisualPercent(tradeView.Trade.StopLossPrice, tradeView.Trade.TakeProfitPrice, tradeView.Trade.BuyPrice, tradeView.CurrentPrice);

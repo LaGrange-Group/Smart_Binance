@@ -6,6 +6,9 @@ var limitContainer = $("#LimitContainer");  //quoteProcedureComponentContainer
 var sellContainer = $("#SellContainer");  //quoteProcedureComponentContainer
 var stopLossContainer = $("#StopLossContainer");  //quoteProcedureComponentContainer
 var takeProfitContainer = $("#TakeProfitContainer");  //quoteProcedureComponentContainer
+var baseDecimalAmount = 0;
+var priceDecimalAmount = 0;
+var assetDecimalAmount = 0;
 var stopLossBool = 0;
 var takeProfitBool = 0;
 var trailingStopLossBool = 0;
@@ -377,6 +380,8 @@ function FlipTrailingStop() {
 //    CreateSmartTrade();
 //});
 
+
+
 function CreateSmartTrade() {
     var market = document.getElementById('modelmarket');
     var tradeType = document.getElementById('modeltradetype');
@@ -390,6 +395,12 @@ function CreateSmartTrade() {
     var takeProfit = document.getElementById('modeltakeprofit');
     var trailingStopLoss = document.getElementById('modeltrailingstoploss');
     var trailingTakeProfit = document.getElementById('modeltrailingtakeprofit');
+    var buildMarketPriceDecimal = document.getElementById('modelpricedecimal');
+    var buildAmountDecimal = document.getElementById('modelamountdecimal');
+    var buildBasePriceDecimal = document.getElementById('modelbasepricedecimal');
+    $(buildBasePriceDecimal).val(baseDecimalAmount);
+    $(buildMarketPriceDecimal).val(priceDecimalAmount);
+    $(buildAmountDecimal).val(assetDecimalAmount);
     $(market).val($('#MarketName').val());
     var selectedTab = $("#tabtype li.active").attr("id");
 

@@ -14,9 +14,11 @@ $(".percTypeBtn-limit").click(function () {
     $('#amount-limit').val((baseAmountCalc / $('#lastprice-limit').val()).toFixed(assetDecimalAmount));
     baseCurrencyTotalCheck($('#basetotal-limit').val());
 });
-
+// Round Limit Price on Change
 $('#lastprice-limit').on('change', function () {
     var currentBaseAmount = $('#basetotal-limit').val();
+    var priceChanged = $(this).val() * 1;
+    $(this).val(priceChanged.toFixed(priceDecimalAmount));
     $('#amount-limit').val((currentBaseAmount / $(this).val()).toFixed(assetDecimalAmount));
     UpdateStopTakeContainer();
 });

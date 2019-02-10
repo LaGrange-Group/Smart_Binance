@@ -28,6 +28,7 @@ namespace Smart_Binance.Actions.SmartTrade
                     var currentPrice = await client.Get24HPriceAsync(market);
                     if (currentPrice.Success)
                     {
+                        viewModel.PriceDecimalAmount = await amountDecimal.PriceDecimal(market);
                         viewModel.AssetDecimalAmount = await amountDecimal.OrderBookDecimal(market);
                         viewModel.Name = market;
                         viewModel.LastPrice = currentPrice.Data.LastPrice;

@@ -6,7 +6,9 @@
 <script>
     var lastPrice = '@Model.LastPrice';
     var amount = '@Model.Amount';
-    var decimalAmount = '@Model.AssetDecimalAmount';
+    assetDecimalAmount = '@Model.AssetDecimalAmount';
+    baseDecimalAmount = '@Model.BaseDecimalAmount';
+    priceDecimalAmount = '@Model.PriceDecimalAmount';
     var minValue = '@Model.MinValue';
     EnableMarketSelect();
     EnableActivateStopTake();

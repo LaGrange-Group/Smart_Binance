@@ -19,5 +19,8 @@ namespace Smart_Binance.Models
         public bool TakeProfit { get; set; }
         public bool TrailingStopLoss { get; set; }
         public bool TrailingTakeProfit { get; set; }
+        public int BasePriceDecimal { get; set; }
+        public int AmountDecimal { get; set; }
+        public int AssetPriceDecimal { get; set; }
     }
 }

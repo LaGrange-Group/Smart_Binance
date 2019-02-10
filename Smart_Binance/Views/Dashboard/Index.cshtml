@@ -123,6 +123,9 @@
         @Html.HiddenFor(m => m.BuildTrade.TakeProfit, new { id = "modeltakeprofit" })
         @Html.HiddenFor(m => m.BuildTrade.TrailingStopLoss, new { id = "modeltrailingstoploss" })
         @Html.HiddenFor(m => m.BuildTrade.TrailingTakeProfit, new { id = "modeltrailingtakeprofit" })
+        @Html.HiddenFor(m => m.BuildTrade.AssetPriceDecimal, new { id = "modelpricedecimal" })
+        @Html.HiddenFor(m => m.BuildTrade.BasePriceDecimal, new { id = "modelbasepricedecimal" })
+        @Html.HiddenFor(m => m.BuildTrade.AmountDecimal, new { id = "modelamountdecimal" })
     </form>
     <center>
         <button id="smarttradebutton" type="button" class="btn btn-default">Create Smart Trade</button>

@@ -43,6 +43,9 @@ namespace Smart_Binance.Actions
             trade.Market = build.Market;
             trade.Amount = build.Amount;
             trade.Type = build.TradeType;
+            trade.AmountDecimal = build.AmountDecimal;
+            trade.BasePriceDecimal = build.BasePriceDecimal;
+            trade.PriceDecimal = build.AssetPriceDecimal;
             TradeDB tradeDB = new TradeDB();
             await tradeDB.Add(trade);
         }

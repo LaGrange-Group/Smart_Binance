@@ -5,7 +5,7 @@ DisableCreateButton();
 $(".percTypeBtn-sell").click(function () {
     $(".percTypeBtn-sell").removeClass("active");
     var percent = $(this).val();
-    $(amountSell).val((amount * percent).toFixed(decimalAmount));
+    $(amountSell).val((amount * percent).toFixed(assetDecimalAmount));
     CallCheckCondtionFunc();
 });
 
