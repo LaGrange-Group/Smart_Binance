@@ -48,6 +48,14 @@ namespace Smart_Binance.Controllers
             await smartTrade.ElicitBuyOrSell();
             return RedirectToAction("Index");
         }
+        public void CancelTrade(int id)
+        {
+
+        }
+        public IActionResult ConfirmCancel()
+        {
+            return PartialView();
+        }
 
 
         public IActionResult GetMySellViewComponent(string marketPass)

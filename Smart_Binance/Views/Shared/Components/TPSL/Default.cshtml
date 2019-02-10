@@ -3,16 +3,18 @@
     ViewData["Title"] = "TPSL";
 }
 <style>
-    .cancelbutton{
-        background:white;
-        border:1px solid black;
-        border-radius:0.5em;
-        color:black;
+    .cancelbutton {
+        background: white;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        color: black;
     }
+
         .cancelbutton:hover {
             background: #7a87f3;
             border: 1px solid black;
         }
+
     .editbutton {
         background: white;
         border: 1px solid black;
@@ -22,7 +24,7 @@
 
         .editbutton:hover {
             background: rgb(245,188,0,0.7);
-            border:1px solid black;
+            border: 1px solid black;
         }
 
     .sellbutton {
@@ -191,7 +193,9 @@
                         <div style="float:left"><p style="float:left; padding-top:1.7em">@Model.Trade.TakeProfitPrice&nbsp;TP</p></div>
                     </div>
                     <div class="col-xs-2" style="padding:0px; padding-top:2.5em;">
-                        <div style="float:right">@Html.ActionLink("X  ", "SellMarket", "TradingBot", null, new { @class = "btn btn-primary btn-small cancelbutton" })</div>
+                        <div style="float:right">
+                            <button id="cancelButton" type="button" class ="btn btn-primary btn-small cancelbutton" value="@Model.Trade.Id">X</button>
+                        </div>
                     </div>
                     <div class="col-xs-3" style="padding:0px; padding-top:2.5em;">
                         <center>@Html.ActionLink("Edit", "SellMarket", "TradingBot", null, new { @class = "btn btn-warning btn-small editbutton" })</center>
@@ -204,3 +208,7 @@
         </div>
     </div>
 </div>
+
+
+@*-----------------------------------------------------------------------------------------------------------*@
+

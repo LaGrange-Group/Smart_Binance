@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Smart_Binance.Actions;
 using Smart_Binance.Data;
 using Smart_Binance.Models;
-using Smart_Binance_API;
 
 namespace Smart_Binance.Controllers
 {

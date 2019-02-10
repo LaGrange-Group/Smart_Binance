@@ -14,7 +14,15 @@ var takeProfitBool = 0;
 var trailingStopLossBool = 0;
 var trailingTakeProfitBool = 0;
 DisableCreateButton();
- //quoteProcedureComponentContainer
+
+$("#cancelButton").click(function () {
+    $('#cancelconfrimmodal').val($(this).val());
+    var url = $('#cancelconfrimmodal').data('url');
+    $.get(url, function (data) {
+        $("#cancelconfrimmodal").html(data);
+        $("#cancelconfrimmodal").modal('show');
+    });
+});
 
 var defaultMarket = "----Select Market----";
 var refreshComponent = function (tab) {
@@ -374,13 +382,13 @@ function FlipTrailingStop() {
         trailingStopLossBool = 0;
     }
 }
+// ---------------------------------------- Trade Visual Buttons
 
 
-//$('#smarttradebutton').click(function () {
-//    CreateSmartTrade();
-//});
 
 
+
+// ---------------------------------- Create Smart Trade
 
 function CreateSmartTrade() {
     var market = document.getElementById('modelmarket');

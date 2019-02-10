@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-xs-7">
                     <div class="form-group" style="padding-right:0.5em; padding-top:0.2em">
-                        <select asp-for="Symbol" class="form-control" asp-items="ViewBag.Markets" id="MarketName" >
+                        <select asp-for="Symbol" class="form-control" asp-items="ViewBag.Markets" id="MarketName">
                             <option>----Select Market----</option>
                         </select>
                     </div>
@@ -198,10 +198,9 @@
 </div>
 
 
-<!-- TradingView Widget BEGIN -->
-<!-- TradingView Widget END -->
+@*------------------------------------- Pop Up Modals*@
 
-
+<div class="modal fade" id="cancelconfrimmodal" role="dialog" data-url='@Url.Action("ConfirmCancel", "Dashboard")'></div>
 
 
 <script>
