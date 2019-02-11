@@ -18,12 +18,21 @@ namespace Smart_Binance.Actions.SmartTrade
             }
         }
 
-        public async Task Update(Trade trade)
+        public async Task UpdateAsync(Trade trade)
         {
             using (var db = new ApplicationDbContext())
             {
                 db.Update(trade);
                 await db.SaveChangesAsync();
+            }
+        }
+
+        public void Update(Trade trade)
+        {
+            using (var db = new ApplicationDbContext())
+            {
+                db.Update(trade);
+                db.SaveChanges();
             }
         }
     }

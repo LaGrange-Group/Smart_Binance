@@ -54,6 +54,8 @@ namespace Smart_Binance.Actions.SmartTrade
                                 trade = sell.Limit(trade, trade.TakeProfitPrice);
                                 if (trade.Success)
                                 {
+                                    TradeDB tradeDB = new TradeDB();
+                                    tradeDB.Update(trade);
                                     take = true;
                                 }
                             }
@@ -71,6 +73,8 @@ namespace Smart_Binance.Actions.SmartTrade
                             trade = sell.LimitStop(trade, trade.StopLossPrice);
                             if (trade.Success)
                             {
+                                TradeDB tradeDB = new TradeDB();
+                                tradeDB.Update(trade);
                                 take = false;
                             }
                         }
@@ -135,6 +139,11 @@ namespace Smart_Binance.Actions.SmartTrade
                         {
                             Sell sell = new Sell(build, api);
                             trade = sell.LimitStop(trade, trade.StopLossPrice);
+                            if (trade.Success)
+                            {
+                                TradeDB tradeDB = new TradeDB();
+                                tradeDB.Update(trade);
+                            }
                         }
                     }
                 });

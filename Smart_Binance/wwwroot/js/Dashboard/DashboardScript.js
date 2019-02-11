@@ -16,11 +16,29 @@ var trailingTakeProfitBool = 0;
 DisableCreateButton();
 
 $("#cancelButton").click(function () {
-    $('#cancelconfrimmodal').val($(this).val());
-    var url = $('#cancelconfrimmodal').data('url');
+    $('#cancelconfirmmodal').val($(this).val());
+    var url = $('#cancelconfirmmodal').data('url');
     $.get(url, function (data) {
-        $("#cancelconfrimmodal").html(data);
-        $("#cancelconfrimmodal").modal('show');
+        $("#cancelconfirmmodal").html(data);
+        $("#cancelconfirmmodal").modal('show');
+    });
+});
+
+$("#editButton").click(function () {
+    $('#editconfirmmodal').val($(this).val());
+    var url = $('#editconfirmmodal').data('url');
+    $.get(url, function (data) {
+        $("#editconfirmmodal").html(data);
+        $("#editconfirmmodal").modal('show');
+    });
+});
+
+$("#sellButton").click(function () {
+    $('#sellconfirmmodal').val($(this).val());
+    var url = $('#sellconfirmmodal').data('url');
+    $.get(url, function (data) {
+        $("#sellconfirmmodal").html(data);
+        $("#sellconfirmmodal").modal('show');
     });
 });
 

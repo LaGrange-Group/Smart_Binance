@@ -1,7 +1,7 @@
 ﻿<script>
     $("#acceptcanceltrade").click(function () {
-        $.post("@Url.Action("CancelTrade","Dashboard")", { id: $("#cancelconfrimmodal").val()} ,function(){
-            $("#cancelconfrimmodal").modal('hide');
+        $.post("@Url.Action("CancelTrade","Dashboard")", { id: $("#cancelconfirmmodal").val()} ,function(){
+            $("#cancelconfirmmodal").modal('hide');
         });
     });
 </script>

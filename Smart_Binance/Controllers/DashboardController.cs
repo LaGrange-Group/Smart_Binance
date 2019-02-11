@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Smart_Binance.Actions;
+using Smart_Binance.Actions.SmartTrade;
 using Smart_Binance.Data;
 using Smart_Binance.Models;
 using Smart_Binance.Models.ViewModels;
@@ -48,16 +49,29 @@ namespace Smart_Binance.Controllers
             await smartTrade.ElicitBuyOrSell();
             return RedirectToAction("Index");
         }
-        public void CancelTrade(int id)
+        public async Task CancelTrade(int id)
         {
-
+            Trade trade = db.Trades.Where(t => t.Id == id).Single();
+            Cancel cancel = new Cancel();
+            if (await cancel.TradeAsync(trade))
+            {
+                trade.Status = false;
+                db.Update(trade);
+                await db.SaveChangesAsync();
+            }
         }
         public IActionResult ConfirmCancel()
         {
             return PartialView();
         }
-
-
+        public IActionResult ConfirmEdit()
+        {
+            return PartialView();
+        }
+        public IActionResult ConfirmSell()
+        {
+            return PartialView();
+        }
         public IActionResult GetMySellViewComponent(string marketPass)
         {
             return ViewComponent("Sell", new { market = marketPass });

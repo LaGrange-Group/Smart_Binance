@@ -8,6 +8,7 @@
         border: 1px solid black;
         border-radius: 0.5em;
         color: black;
+        outline:none;
     }
 
         .cancelbutton:hover {
@@ -20,11 +21,17 @@
         border: 1px solid black;
         border-radius: 0.5em;
         color: black;
+        outline:none;
     }
+        .editbutton:active {
+            background: #f5bc00;
+            outline:none;
+        }
 
         .editbutton:hover {
             background: rgb(245,188,0,0.7);
             border: 1px solid black;
+            outline:none;
         }
 
     .sellbutton {
@@ -194,14 +201,17 @@
                     </div>
                     <div class="col-xs-2" style="padding:0px; padding-top:2.5em;">
                         <div style="float:right">
-                            <button id="cancelButton" type="button" class ="btn btn-primary btn-small cancelbutton" value="@Model.Trade.Id">X</button>
+                            <button id="cancelButton" type="button" style="outline:none;" class ="btn btn-small cancelbutton" value="@Model.Trade.Id">X</button>
                         </div>
                     </div>
                     <div class="col-xs-3" style="padding:0px; padding-top:2.5em;">
-                        <center>@Html.ActionLink("Edit", "SellMarket", "TradingBot", null, new { @class = "btn btn-warning btn-small editbutton" })</center>
+                        <center>
+                            <button id="editButton" type="button" style="outline:none" class="btn btn-small editbutton" value="@Model.Trade.Id">Edit</button>
+                        </center>
                     </div>
                     <div class="col-xs-2" style="padding:0px; padding-top:2.5em;">
-                        <div style="float:right">@Html.ActionLink("Sell", "SellMarket", "TradingBot", null, new { @class = "btn btn-danger btn-small sellbutton" })</div>
+                        <button id="sellButton" type="button" style="outline:none" class="btn btn-small sellbutton" value="@Model.Trade.Id">Sell</button>
+                        @*<div style="float:right">@Html.ActionLink("Sell", "SellMarket", "TradingBot", null, new { @class = "btn btn-danger btn-small sellbutton" })</div>*@
                     </div>
                 </div>
             </div>
