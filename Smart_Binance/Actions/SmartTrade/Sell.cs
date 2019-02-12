@@ -36,7 +36,7 @@ namespace Smart_Binance.Actions.SmartTrade
             });
             using (var client = new BinanceClient())
             {
-                var limitOrder = await client.PlaceOrderAsync(build.Market, OrderSide.Sell, OrderType.Limit, build.Amount, null, price, TimeInForce.GoodTillCancel);
+                var limitOrder = await client.PlaceOrderAsync(build.Market, OrderSide.Sell, OrderType.Limit, trade.Amount, null, price, TimeInForce.GoodTillCancel);
                 if (limitOrder.Success)
                 {
                     trade.TakeProfitPrice = price;
@@ -84,6 +84,8 @@ namespace Smart_Binance.Actions.SmartTrade
 
         public Trade LimitStop(Trade trade, decimal price)
         {
+            decimal cutAmount = decimal.Round(trade.Amount - (trade.Amount * 0.05m), trade.AmountDecimal);
+            decimal lowPrice = decimal.Round(build.MinValue / cutAmount, trade.PriceDecimal);
             BinanceClient.SetDefaultOptions(new BinanceClientOptions()
             {
                 ApiCredentials = new ApiCredentials(api.Key, api.Secret),
@@ -92,7 +94,7 @@ namespace Smart_Binance.Actions.SmartTrade
             });
             using (var client = new BinanceClient())
             {
-                var limitOrder = client.PlaceOrder(build.Market, OrderSide.Sell, OrderType.StopLossLimit, build.Amount, null, price, TimeInForce.GoodTillCancel, price);
+                var limitOrder = client.PlaceOrder(build.Market, OrderSide.Sell, OrderType.StopLossLimit, build.Amount, null, lowPrice, TimeInForce.GoodTillCancel, price);
                 if (limitOrder.Success)
                 {
                     trade.StopLossPrice = price;
@@ -112,6 +114,8 @@ namespace Smart_Binance.Actions.SmartTrade
 
         public async Task<Trade> LimitStopAsync(Trade trade, decimal price)
         {
+            decimal cutAmount = decimal.Round(trade.Amount - (trade.Amount * 0.05m), trade.AmountDecimal);
+            decimal lowPrice = decimal.Round(build.MinValue / cutAmount, trade.PriceDecimal);
             BinanceClient.SetDefaultOptions(new BinanceClientOptions()
             {
                 ApiCredentials = new ApiCredentials(api.Key, api.Secret),
@@ -120,7 +124,7 @@ namespace Smart_Binance.Actions.SmartTrade
             });
             using (var client = new BinanceClient())
             {
-                var limitOrder = await client.PlaceOrderAsync(build.Market, OrderSide.Sell, OrderType.StopLossLimit, build.Amount, null, price, TimeInForce.GoodTillCancel, price);
+                var limitOrder = await client.PlaceOrderAsync(build.Market, OrderSide.Sell, OrderType.StopLossLimit, build.Amount, null, lowPrice, TimeInForce.GoodTillCancel, price);
                 if (limitOrder.Success)
                 {
                     trade.StopLossPrice = price;

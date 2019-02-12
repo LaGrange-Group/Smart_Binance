@@ -34,7 +34,7 @@ namespace Smart_Binance.Actions.SmartTrade
                 if (marketOrder.Success)
                 {
                     trade.BuyPrice = marketOrder.Data.Fills[0].Price;
-                    trade.Amount = build.Amount;
+                    trade.Amount = marketOrder.Data.ExecutedQuantity;
                     trade.Success = true;
                     return trade;
                 }

@@ -9,6 +9,7 @@ var takeProfitContainer = $("#TakeProfitContainer");  //quoteProcedureComponentC
 var baseDecimalAmount = 0;
 var priceDecimalAmount = 0;
 var assetDecimalAmount = 0;
+var minValue = 0;
 var stopLossBool = 0;
 var takeProfitBool = 0;
 var trailingStopLossBool = 0;
@@ -415,9 +416,11 @@ function CreateSmartTrade() {
     var buildMarketPriceDecimal = document.getElementById('modelpricedecimal');
     var buildAmountDecimal = document.getElementById('modelamountdecimal');
     var buildBasePriceDecimal = document.getElementById('modelbasepricedecimal');
+    var buildMinValue = document.getElementById('modelminvalue');
     $(buildBasePriceDecimal).val(baseDecimalAmount);
     $(buildMarketPriceDecimal).val(priceDecimalAmount);
     $(buildAmountDecimal).val(assetDecimalAmount);
+    $(buildMinValue).val(minValue);
     $(market).val($('#MarketName').val());
     var selectedTab = $("#tabtype li.active").attr("id");
 

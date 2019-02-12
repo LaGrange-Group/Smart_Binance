@@ -34,7 +34,7 @@ namespace Smart_Binance.Controllers
             dashboard.Balances = await balances.GetBalanceValues();
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
-            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC", "BTCUSDT", "XZCXRP", "XRPUSDT", "WAVESETH", "ADABNB", "DLTBTC", "VIBEBTC", "REPBTC", "BTTBTC", "MTLBTC", "WINGSBTC", "STEEMBTC" };
+            List<string> Symbols = new List<string> { "ZILBTC", "TRXBTC", "BNBBTC", "BTCUSDT", "XZCXRP", "XRPUSDT", "WAVESETH", "ADABNB", "KMDBTC", "VIBEBTC", "REPBTC", "BTTBTC", "MTLBTC", "WINGSBTC", "STEEMBTC" };
             ViewBag.Markets = new SelectList(Symbols);
             return View(dashboard);
         }
