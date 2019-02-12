@@ -19,6 +19,11 @@ $(amountSell).on('change', function () {
     CallCheckCondtionFunc();
 });
 
+$("#lastprice-sell").on('change', function () {
+    var newPrice = $("#lastprice-sell").val() * 1;
+    newPrice = newPrice.toFixed(priceDecimalAmount);
+    $("#lastprice-sell").val(newPrice);
+});
 
 
 function removeActiveButton() {
