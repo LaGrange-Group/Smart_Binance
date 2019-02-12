@@ -3,7 +3,23 @@
     ViewData["Title"] = "TPSL";
 }
 <script>
+    $("#cancelButton").click(function () {
+        $('#cancelconfirmmodal').val($(this).val());
+        var url = $('#cancelconfirmmodal').data('url');
+        $.get(url, function (data) {
+            $("#cancelconfirmmodal").html(data);
+            $("#cancelconfirmmodal").modal('show');
+        });
+    });
 
+    $("#sellButton").click(function () {
+        $('#sellconfirmmodal').val($(this).val());
+        var url = $('#sellconfirmmodal').data('url');
+        $.get(url, function (data) {
+            $("#sellconfirmmodal").html(data);
+            $("#sellconfirmmodal").modal('show');
+        });
+    });
 </script>
 <style>
     .cancelbutton {
@@ -17,24 +33,7 @@
         .cancelbutton:hover {
             background: #7a87f3;
             border: 1px solid black;
-        }
-
-    .editbutton {
-        background: white;
-        border: 1px solid black;
-        border-radius: 0.5em;
-        color: black;
-        outline:none;
-    }
-        .editbutton:active {
-            background: #f5bc00;
-            outline:none;
-        }
-
-        .editbutton:hover {
-            background: rgb(245,188,0,0.7);
-            border: 1px solid black;
-            outline:none;
+            color:white;
         }
 
     .sellbutton {
@@ -47,6 +46,7 @@
         .sellbutton:hover {
             background: #cf6565;
             border: 1px solid black;
+            color:white;
         }
 </style>
 <div class="row" style="padding-bottom:2%">
@@ -201,13 +201,13 @@
                     </div>
                     <div class="col-xs-4" style="padding:0px; padding-top:2.5em;">
                         <div style="float:right">
-                            <button id="cancelButton" type="button" style="outline:none;" class="btn btn-small cancelbutton" value="@Model.Trade.Id">Cancel</button>
+                            <button id="cancelButton" type="button" style="outline:none;"  onclick="CancelClicked(@Model.Trade.Id)" class="btn btn-small cancelbutton" value="@Model.Trade.Id">Cancel</button>
                         </div>
                     </div>
                     <div class="col-xs-3" style="padding:0px; padding-top:2.5em;">
                         <center>
                             <div>
-                                <button id="sellButton" type="button" style="outline:none" class="btn btn-small sellbutton" value="@Model.Trade.Id">Sell</button>
+                                <button id="sellButton" type="button" style="outline:none" onclick="SellClicked(@Model.Trade.Id)" class="btn btn-small sellbutton" value="@Model.Trade.Id">Sell</button>
                             </div>
                         </center>
     @*<div style="float:right">@Html.ActionLink("Sell", "SellMarket", "TradingBot", null, new { @class = "btn btn-danger btn-small sellbutton" })</div>*@

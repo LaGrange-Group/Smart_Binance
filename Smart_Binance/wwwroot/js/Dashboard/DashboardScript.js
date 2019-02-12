@@ -15,32 +15,23 @@ var trailingStopLossBool = 0;
 var trailingTakeProfitBool = 0;
 DisableCreateButton();
 
-$("#cancelButton").click(function () {
-    $('#cancelconfirmmodal').val($(this).val());
+function CancelClicked(id) {
+    $('#cancelconfirmmodal').val(id);
     var url = $('#cancelconfirmmodal').data('url');
     $.get(url, function (data) {
         $("#cancelconfirmmodal").html(data);
         $("#cancelconfirmmodal").modal('show');
     });
-});
+}
 
-$("#editButton").click(function () {
-    $('#editconfirmmodal').val($(this).val());
-    var url = $('#editconfirmmodal').data('url');
-    $.get(url, function (data) {
-        $("#editconfirmmodal").html(data);
-        $("#editconfirmmodal").modal('show');
-    });
-});
-
-$("#sellButton").click(function () {
-    $('#sellconfirmmodal').val($(this).val());
+function SellClicked (id) {
+    $('#sellconfirmmodal').val(id);
     var url = $('#sellconfirmmodal').data('url');
     $.get(url, function (data) {
         $("#sellconfirmmodal").html(data);
         $("#sellconfirmmodal").modal('show');
     });
-});
+}
 
 var defaultMarket = "----Select Market----";
 var refreshComponent = function (tab) {
