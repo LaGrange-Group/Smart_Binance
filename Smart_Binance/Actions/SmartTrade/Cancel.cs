@@ -58,6 +58,7 @@ namespace Smart_Binance.Actions.SmartTrade
                         }
                         else
                         {
+                            var error = cancelOrder.Error;
                             return false;
                         }
                     }

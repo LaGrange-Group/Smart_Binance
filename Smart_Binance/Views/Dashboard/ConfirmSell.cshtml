@@ -1,5 +1,8 @@
 ﻿<script>
     $("#acceptselltrade").click(function () {
+        $.post("@Url.Action("SellTrade","Dashboard")", { id: $("#sellconfirmmodal").val()} ,function(){
+            $("#sellconfirmmodal").modal('hide');
+        });
         // Function to cancel and create sell
         // Trade Id: $("#editconfirmmodal").val()
         // Cancel order

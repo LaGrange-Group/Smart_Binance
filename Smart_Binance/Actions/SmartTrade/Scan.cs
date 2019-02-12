@@ -37,7 +37,7 @@ namespace Smart_Binance.Actions.SmartTrade
             {
                 var successKline = client.SubscribeToKlineStream(build.Market, KlineInterval.OneMinute, (data) =>
                 {
-                    if (trade.Status)
+                    if (trade.Status && iterationCanceled == 0)
                     {
                         if (build.TrailingStopLoss)
                         {
@@ -170,7 +170,7 @@ namespace Smart_Binance.Actions.SmartTrade
             {
                 var successKline = client.SubscribeToKlineStream(build.Market, KlineInterval.OneMinute, (data) =>
                 {
-                    if (trade.Status)
+                    if (trade.Status && iterationCanceled == 0)
                     {
                         decimal newPercentDiff = decimal.Round((trade.StopLossPrice - data.Data.High) / data.Data.High, 3);
                         newPercentDiff = newPercentDiff < 0 ? newPercentDiff * -1m : newPercentDiff;

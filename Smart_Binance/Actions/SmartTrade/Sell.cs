@@ -15,6 +15,11 @@ namespace Smart_Binance.Actions.SmartTrade
     {
         private readonly BuildTrade build;
         private readonly API api;
+
+        public Sell (API api)
+        {
+            this.api = api;
+        }
         public Sell(BuildTrade build, API api)
         {
             this.build = build;
@@ -154,9 +159,35 @@ namespace Smart_Binance.Actions.SmartTrade
                 else
                 {
                     var error = marketOrder.Error;
+                    trade.Success = false;
+                    return trade;
                 }
             }
-            return null;
+        }
+
+        public async Task<decimal> MarketAsyncTrade(Trade trade)
+        {
+            BinanceClient.SetDefaultOptions(new BinanceClientOptions()
+            {
+                ApiCredentials = new ApiCredentials(api.Key, api.Secret),
+                LogVerbosity = LogVerbosity.Debug,
+                LogWriters = new List<TextWriter> { Console.Out }
+            });
+            using (var client = new BinanceClient())
+            {
+                var marketOrder = await client.PlaceOrderAsync(trade.Market, OrderSide.Sell, OrderType.Market, trade.Amount);
+                if (marketOrder.Success)
+                {
+                    trade.Success = true;
+                    return marketOrder.Data.Fills[0].Price;
+                }
+                else
+                {
+                    var error = marketOrder.Error;
+                    trade.Success = false;
+                    return 0m;
+                }
+            }
         }
 
         public TradeResult Market(Trade trade)

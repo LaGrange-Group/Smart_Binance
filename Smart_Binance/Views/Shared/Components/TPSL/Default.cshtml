@@ -199,19 +199,18 @@
                     <div class="col-xs-5" style="padding-top:1.4em;">
                         <div style="float:left"><p style="float:left; padding-top:1.7em">@Model.Trade.TakeProfitPrice&nbsp;TP</p></div>
                     </div>
-                    <div class="col-xs-2" style="padding:0px; padding-top:2.5em;">
+                    <div class="col-xs-4" style="padding:0px; padding-top:2.5em;">
                         <div style="float:right">
-                            <button id="cancelButton" type="button" style="outline:none;" class ="btn btn-small cancelbutton" value="@Model.Trade.Id">X</button>
+                            <button id="cancelButton" type="button" style="outline:none;" class="btn btn-small cancelbutton" value="@Model.Trade.Id">Cancel</button>
                         </div>
                     </div>
                     <div class="col-xs-3" style="padding:0px; padding-top:2.5em;">
                         <center>
-                            <button id="editButton" type="button" style="outline:none" class="btn btn-small editbutton" value="@Model.Trade.Id">Edit</button>
+                            <div>
+                                <button id="sellButton" type="button" style="outline:none" class="btn btn-small sellbutton" value="@Model.Trade.Id">Sell</button>
+                            </div>
                         </center>
-                    </div>
-                    <div class="col-xs-2" style="padding:0px; padding-top:2.5em;">
-                        <button id="sellButton" type="button" style="outline:none" class="btn btn-small sellbutton" value="@Model.Trade.Id">Sell</button>
-                        @*<div style="float:right">@Html.ActionLink("Sell", "SellMarket", "TradingBot", null, new { @class = "btn btn-danger btn-small sellbutton" })</div>*@
+    @*<div style="float:right">@Html.ActionLink("Sell", "SellMarket", "TradingBot", null, new { @class = "btn btn-danger btn-small sellbutton" })</div>*@
                     </div>
                 </div>
             </div>

@@ -49,7 +49,7 @@ namespace Smart_Binance.Controllers
             await smartTrade.ElicitBuyOrSell();
             return RedirectToAction("Index");
         }
-        public async Task CancelTrade(int id)
+        public async Task<IActionResult> CancelTrade(int id)
         {
             Trade trade = db.Trades.Where(t => t.Id == id).Single();
             Cancel cancel = new Cancel();
@@ -59,6 +59,30 @@ namespace Smart_Binance.Controllers
                 db.Update(trade);
                 await db.SaveChangesAsync();
             }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> SellTrade(int id)
+        {
+            Trade trade = db.Trades.Where(t => t.Id == id).Single();
+            Cancel cancel = new Cancel();
+            if (await cancel.TradeAsync(trade))
+            {
+                trade.Status = false;
+                db.Update(trade);
+                await db.SaveChangesAsync();
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                Customer customer = db.Customers.Include(c => c.API ).Where(c => c.UserId == userId).Single();
+                API api = customer.API;
+                Sell sell = new Sell(api);
+                decimal sellPrice = await sell.MarketAsyncTrade(trade);
+                if (sellPrice != 0m)
+                {
+                    //Success
+                    
+                }
+            }
+            return RedirectToAction("Index");
         }
         public IActionResult ConfirmCancel()
         {
