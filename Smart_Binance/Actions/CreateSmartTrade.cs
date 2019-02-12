@@ -81,19 +81,13 @@ namespace Smart_Binance.Actions
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         Scan scan = new Scan(build);
-                        trade = await scan.ConclusionTakeProfitAsync(trade);
-                        if (trade.Success)
+                        TradeResult result = await scan.ConclusionTakeProfitAsync(trade);
+                        trade.Status = false;
+                        await tradeDB.UpdateAsync(trade);
+                        if (result.Success)
                         {
-                            TradeResult result = new TradeResult();
-                            result.TradeId = trade.Id;
-                            result.SellPrice = build.TakeProfitPrice;
-                            result.EndTime = DateTime.Now;
-                            CalculateResult calculate = new CalculateResult();
-                            result = calculate.PercentDifference(result, trade);
-                            result.Success = true;
                             TradeResultDB resultDB = new TradeResultDB();
                             resultDB.Add(result);
-                            await tradeDB.UpdateAsync(trade);
                         }
                     }
 
@@ -112,12 +106,12 @@ namespace Smart_Binance.Actions
                         await tradeDB.UpdateAsync(trade);
                         Scan scan = new Scan(build, api);
                         TradeResult result = scan.TrailingTakeProfit(trade);
+                        trade.Status = false;
+                        await tradeDB.UpdateAsync(trade);
                         if (result.Success)
                         {
                             TradeResultDB resultDB = new TradeResultDB();
                             resultDB.Add(result);
-                            trade.Status = false;
-                            await tradeDB.UpdateAsync(trade);
                         }
                     }
 
@@ -133,12 +127,12 @@ namespace Smart_Binance.Actions
                         await tradeDB.UpdateAsync(trade);
                         Scan scan = new Scan(build, api);
                         TradeResult result = await scan.ConclusionStopLossAsync(trade);
+                        trade.Status = false;
+                        await tradeDB.UpdateAsync(trade);
                         if (result.Success)
                         {
                             TradeResultDB resultDB = new TradeResultDB();
                             resultDB.Add(result);
-                            trade.Status = false;
-                            await tradeDB.UpdateAsync(trade);
                         }
                     }
                 }
@@ -156,12 +150,12 @@ namespace Smart_Binance.Actions
                         {
                             Scan scan = new Scan(build, api);
                             TradeResult result = scan.TrailingStopLoss(trade);
+                            trade.Status = false;
+                            await tradeDB.UpdateAsync(trade);
                             if (result.Success)
                             {
                                 TradeResultDB resultDB = new TradeResultDB();
                                 resultDB.Add(result);
-                                trade.Status = false;
-                                await tradeDB.UpdateAsync(trade);
                             }
                         });
                     }
@@ -181,12 +175,12 @@ namespace Smart_Binance.Actions
                         var scanStop = Task.Run(async () => {
                             Scan scan = new Scan(build, api);
                             TradeResult result = scan.MiddleOrderFlip(trade);
+                            trade.Status = false;
+                            await tradeDB.UpdateAsync(trade);
                             if (result.Success)
                             {
                                 TradeResultDB resultDB = new TradeResultDB();
                                 resultDB.Add(result);
-                                trade.Status = false;
-                                await tradeDB.UpdateAsync(trade);
                             }
                         });
                     }
@@ -205,12 +199,12 @@ namespace Smart_Binance.Actions
                         var scanStop = Task.Run(async () => {
                             Scan scan = new Scan(build, api);
                             TradeResult result = scan.MiddleOrderFlip(trade);
+                            trade.Status = false;
+                            await tradeDB.UpdateAsync(trade);
                             if (result.Success)
                             {
                                 TradeResultDB resultDB = new TradeResultDB();
                                 resultDB.Add(result);
-                                trade.Status = false;
-                                await tradeDB.UpdateAsync(trade);
                             }
                         });
                     }
@@ -230,12 +224,12 @@ namespace Smart_Binance.Actions
                         var scanStop = Task.Run(async () => {
                             Scan scan = new Scan(build, api);
                             TradeResult result = scan.MiddleOrderFlip(trade);
+                            trade.Status = false;
+                            await tradeDB.UpdateAsync(trade);
                             if (result.Success)
                             {
                                 TradeResultDB resultDB = new TradeResultDB();
                                 resultDB.Add(result);
-                                trade.Status = false;
-                                await tradeDB.UpdateAsync(trade);
                             }
                         });
                     }
@@ -256,12 +250,12 @@ namespace Smart_Binance.Actions
                         var scanStop = Task.Run(async () => {
                             Scan scan = new Scan(build, api);
                             TradeResult result = scan.MiddleOrderFlip(trade);
+                            trade.Status = false;
+                            await tradeDB.UpdateAsync(trade);
                             if (result.Success)
                             {
                                 TradeResultDB resultDB = new TradeResultDB();
                                 resultDB.Add(result);
-                                trade.Status = false;
-                                await tradeDB.UpdateAsync(trade);
                             }
                         });
                     }

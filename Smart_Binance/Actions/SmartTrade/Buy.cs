@@ -41,9 +41,10 @@ namespace Smart_Binance.Actions.SmartTrade
                 else
                 {
                     var error = marketOrder.Error;
+                    trade.Success = false;
+                    return trade;
                 }
             }
-            return null;
         }
 
         public async Task<Trade> LimitAsync(Trade trade, decimal price)

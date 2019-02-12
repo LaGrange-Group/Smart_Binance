@@ -22,11 +22,13 @@ namespace Smart_Binance.Actions.SmartTrade
                 var balances = await client.GetAccountInfoAsync();
                 if (balances.Success)
                 {
+                    CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
                     BinanceBalance balance = balances.Data.Balances.Where(b => b.Asset == asset).Single();
+                    viewModel.BaseDecimalAmount = viewModel.BaseType == "USDT" || viewModel.BaseType == "TUSD" || viewModel.BaseType == "USDC" || viewModel.BaseType == "PAX" ? 2 : await amountDecimal.OrderBookDecimal(viewModel.BaseType + "USDT");
                     var currentPrice = await client.Get24HPriceAsync(market);
                     if (currentPrice.Success)
                     {
-                        CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
+                        viewModel.PriceDecimalAmount = await amountDecimal.PriceDecimal(market);
                         viewModel.AssetDecimalAmount = await amountDecimal.OrderBookDecimal(market);
                         viewModel.Name = market;
                         viewModel.Amount = decimal.Round(balance.Free, viewModel.AssetDecimalAmount);
