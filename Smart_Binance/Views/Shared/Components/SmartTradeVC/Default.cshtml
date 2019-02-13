@@ -8,7 +8,11 @@
 
 @foreach (Trade trade in Model.Trades)
 {
-    if (trade.DisplayType == "TPSL")
+    if (trade.LimitPending)
+    {
+        @await Component.InvokeAsync("LimitPendingVC", new { id = trade.Id })
+    }
+    else if (trade.DisplayType == "TPSL")
     {
         @await Component.InvokeAsync("TPSL", new { id = trade.Id })
     }
@@ -20,5 +24,4 @@
             </center>
         </div>
     }
-
 }

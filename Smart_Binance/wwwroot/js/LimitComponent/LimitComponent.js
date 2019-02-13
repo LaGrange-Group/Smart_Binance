@@ -20,7 +20,7 @@ $('#lastprice-limit').on('change', function () {
     var priceChanged = $(this).val() * 1;
     $(this).val(priceChanged.toFixed(priceDecimalAmount));
     $('#amount-limit').val((currentBaseAmount / $(this).val()).toFixed(assetDecimalAmount));
-    UpdateStopTakeContainer();
+    //UpdateStopTakeContainer();
 });
 
 
