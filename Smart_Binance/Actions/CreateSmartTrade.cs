@@ -74,7 +74,7 @@ namespace Smart_Binance.Actions
                 if (!build.StopLoss && !build.TakeProfit)
                 {
                     // Buy Only
-                    trade.DisplayType = "BO";
+                    trade.DisplayType = "BOVC";
                     TradeDB tradeDB = new TradeDB();
                     await tradeDB.UpdateAsync(trade);
                 }
@@ -151,6 +151,7 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitStopAsync(trade, trade.StopLossPrice);
                     if (trade.Success)
                     {
+                        trade.DisplayType = "TSLVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         var trailingStop = Task.Run(async () =>
@@ -176,7 +177,7 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
-                        trade.DisplayType = "TPSL";
+                        trade.DisplayType = "TPSLVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         var scanStop = Task.Run(async () => {

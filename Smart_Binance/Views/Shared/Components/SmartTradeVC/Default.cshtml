@@ -2,9 +2,6 @@
 @{
     ViewData["Title"] = "Smart Trades";
 }
-<script>
-
-</script>
 
 @foreach (Trade trade in Model.Trades)
 {
@@ -12,13 +9,17 @@
     {
         @await Component.InvokeAsync("LimitPendingVC", new { id = trade.Id })
     }
-    else if (trade.DisplayType == "TPSL")
+    else if (trade.DisplayType == "TPSLVC")
     {
         @await Component.InvokeAsync("TPSL", new { id = trade.Id })
     }
-    else if (trade.DisplayType == "BO")
+    else if (trade.DisplayType == "BOVC")
     {
         @await Component.InvokeAsync("BOVC", new { id = trade.Id})
+    }
+    else if (trade.DisplayType == "TSLVC")
+    {
+        @await Component.InvokeAsync("TSLVC", new { id = trade.Id})
     }
     else
     {

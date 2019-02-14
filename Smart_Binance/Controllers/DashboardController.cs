@@ -68,7 +68,7 @@ namespace Smart_Binance.Controllers
             Customer customer = db.Customers.Include(c => c.API).Where(c => c.UserId == userId).Single();
             API api = customer.API;
             Cancel cancel = new Cancel();
-            if (await cancel.TradeAsync(trade) && trade.DisplayType != "BO")
+            if (await cancel.TradeAsync(trade) && trade.DisplayType != "BOVC")
             {
                 trade.Status = false;
                 db.Update(trade);
@@ -81,7 +81,7 @@ namespace Smart_Binance.Controllers
                     
                 }
             }
-            else if (trade.DisplayType == "BO")
+            else if (trade.DisplayType == "BOVC")
             {
                 trade.Status = false;
                 db.Update(trade);
