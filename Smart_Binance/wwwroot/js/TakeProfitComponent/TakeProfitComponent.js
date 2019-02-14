@@ -4,8 +4,6 @@ var priceBox = document.getElementById("price-take");
 var trailingTakeBoolElement = document.getElementById("trailingtakebool");
 output.value = slider.value;
 
-
-
 output.oninput = function () {
     slider.value = this.value;
     var newPrice = (initialPrice * 1) + (initialPrice * (this.value / 100));

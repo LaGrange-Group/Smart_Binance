@@ -14,15 +14,11 @@ namespace Smart_Binance.ViewComponents.TradeTypes
     {
         public async Task<IViewComponentResult> InvokeAsync(int id)
         {
-            CalculateAmountDecimal calculate = new CalculateAmountDecimal();
-
             TradeViewModel tradeView = new TradeViewModel();
             using (var db = new ApplicationDbContext())
             {
                 tradeView.Trade = db.Trades.Where(t => t.Id == id).Single();
             }
-            int amountDecimal = await calculate.OrderBookDecimal(tradeView.Trade.Market);
-            int priceDecimal = await calculate.PriceDecimal(tradeView.Trade.Market);
             GetTrade getTrade = new GetTrade();
             if (tradeView.Trade != null)
             {

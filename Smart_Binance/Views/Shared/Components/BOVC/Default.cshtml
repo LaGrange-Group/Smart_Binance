@@ -1,0 +1,218 @@
+﻿@model Smart_Binance.Models.ViewModels.TradeViewModel
+@{
+    ViewData["Title"] = "Buy Only";
+}
+<script>
+    $("#cancelButton").click(function () {
+        $('#cancelconfirmmodal').val($(this).val());
+        var url = $('#cancelconfirmmodal').data('url');
+        $.get(url, function (data) {
+            $("#cancelconfirmmodal").html(data);
+            $("#cancelconfirmmodal").modal('show');
+        });
+    });
+
+    $("#sellButton").click(function () {
+        $('#sellconfirmmodal').val($(this).val());
+        var url = $('#sellconfirmmodal').data('url');
+        $.get(url, function (data) {
+            $("#sellconfirmmodal").html(data);
+            $("#sellconfirmmodal").modal('show');
+        });
+    });
+</script>
+<style>
+    .cancelbutton {
+        background: white;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        color: black;
+        outline: none;
+    }
+
+        .cancelbutton:hover {
+            background: #7a87f3;
+            border: 1px solid black;
+            color: white;
+        }
+
+    .sellbutton {
+        background: white;
+        border: 1px solid black;
+        border-radius: 0.5em;
+        color: black;
+    }
+
+        .sellbutton:hover {
+            background: #cf6565;
+            border: 1px solid black;
+            color: white;
+        }
+</style>
+<div class="row" style="padding-bottom:2%">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-3" style="padding:0px;height:100px;">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div style="padding-top:2.4em">
+                            <h4 style="float:left; padding:0px; color:#000000">@Model.Trade.Market</h4>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div style="padding-top:3em;">
+                            <center>
+                                <p>@Model.Trade.Amount</p>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="col-xs-6">
+                <div class="row">
+                    @if (Model.BelowZeroPercent)
+                    {
+                        <div class="col-xs-4" style="padding-right:0px">
+                            <div style="height:15px; float:right; width:@Model.VisualPercentage%">
+                                <span style="float:right; color:red">@Model.CurrentPercentage%</span><br />
+                                <span style="float:right;">Price:&nbsp;@Model.CurrentPrice</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-8" style="padding-left:0px">
+                            <div style="height:15px; float:left; width:0%; padding-left:0px">
+
+                            </div>
+                        </div>
+                    }
+                    else // if above zero
+                    {
+                        <div class="col-xs-4" style="padding-right:0px">
+                            <div style="height:15px; float:right; width:0%">
+
+                            </div>
+                        </div>
+                        <div class="col-xs-8" style="padding-left:0px">
+                            <div style="height:15px; float:left; width:@Model.VisualPercentage%; padding-left:0px">
+                                <span style="float:right; color:green"> +@Model.CurrentPercentage%</span><br />
+                                <span style="float:right;">Price:&nbsp;@Model.CurrentPrice</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <br />
+                @if (Model.BelowZeroPercent)
+                {
+
+
+                    <div style="width:100%; padding-top:5px;">
+                        <div class="row">
+                            <div class="col-xs-4" style="padding-right:0px">
+                                <div style="height:15px; border-left:2px solid gray; float:right; width:@Model.VisualPercentage%">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-8" style="padding-left:0px">
+                                <div style="height:15px; border-right:0px solid gray; float:left; width:0%">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else // if above zero
+                {
+                    <div style="width:100%; padding-top:5px;">
+                        <div class="row">
+                            <div class="col-xs-4" style="padding-right:0px">
+                                <div style="height:15px; border-left:0px solid gray; float:right; width:0%">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-8" style="padding-left:0px">
+                                <div style="height:15px; border-right:2px solid gray; float:left; width:@Model.VisualPercentage%">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Model.BelowZeroPercent)
+                {
+                    <div style="width:100%; height:10px; border:1px solid lightgray; border-radius:5px;">
+                        <div class="row">
+                            <div class="col-xs-4" style="padding-right:0px">
+                                <div style=" height:8px; background-color:#da1e1e; border-radius:5px 0px 0px 5px; float:right; width:@Model.VisualPercentage%">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-8" style="padding-left:0px">
+                                <div style="border-left:4px solid lightgray; height:8px">
+                                    <div style=" height:8px; background-color:#60bb4b; border-radius:0px 5px 5px 0px; float:left; width:0%;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else // if above zero
+                {
+                    <div style="width:100%; height:10px; border:1px solid lightgray; border-radius:5px;">
+                        <div class="row">
+                            <div class="col-xs-4" style="padding-right:0px">
+                                <div style=" height:8px; background-color:#da1e1e; border-radius:5px 0px 0px 5px; float:right; width:0%">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-8" style="padding-left:0px">
+                                <div style="border-left:4px solid lightgray; height:8px">
+                                    <div style=" height:8px; background-color:#60bb4b; border-radius:0px 5px 5px 0px; float:left; width:@Model.VisualPercentage%;">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row" style="padding:0px">
+                    <div class="col-xs-4" style="padding:0px">
+
+                    </div>
+                    <div class="col-xs-8" style=" padding-left:0.08em">
+                        <div style="height:15px; border-left:2px solid gray;">
+
+                        </div>
+                        <div>
+                            <span style="float:left;">Buy:&nbsp;@Model.Trade.BuyPrice</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3" style="padding:0px;height:100px;">
+                <div class="row">
+                    <div class="col-xs-5" style="padding-top:1.4em;">
+
+                    </div>
+                    <div class="col-xs-4" style="padding:0px; padding-top:2.5em;">
+                        <div style="float:right">
+                            <button id="cancelButton" type="button" style="outline:none;" onclick="CancelClicked(@Model.Trade.Id)" class="btn btn-small cancelbutton" value="@Model.Trade.Id">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-3" style="padding:0px; padding-top:2.5em;">
+                        <center>
+                            <div>
+                                <button id="sellButton" type="button" style="outline:none" onclick="SellClicked(@Model.Trade.Id)" class="btn btn-small sellbutton" value="@Model.Trade.Id">Sell</button>
+                            </div>
+                        </center>
+                        @*<div style="float:right">@Html.ActionLink("Sell", "SellMarket", "TradingBot", null, new { @class = "btn btn-danger btn-small sellbutton" })</div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

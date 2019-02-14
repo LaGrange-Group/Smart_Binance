@@ -71,7 +71,14 @@ namespace Smart_Binance.Actions
         private async Task ElicitConditions()
         {
             var implementConditions = Task.Run(async () => {
-                if (!build.StopLoss && build.TakeProfit && !build.TrailingTakeProfit)
+                if (!build.StopLoss && !build.TakeProfit)
+                {
+                    // Buy Only
+                    trade.DisplayType = "BO";
+                    TradeDB tradeDB = new TradeDB();
+                    await tradeDB.UpdateAsync(trade);
+                }
+                else if (!build.StopLoss && build.TakeProfit && !build.TrailingTakeProfit)
                 {
                     // Take Profit
                     Sell sell = new Sell(build, api);
