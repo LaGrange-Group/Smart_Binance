@@ -2,7 +2,13 @@
 var marketName = document.getElementById('#MarketName');
 var activateStop = document.getElementById("activatestop");
 var stockMarket = "----Select Market----";
-DisableActivateStopTake();
+var selectedTab = $("#tabtype li.active").attr("id");
+if (selectedTab !== "limittab") {
+    DisableActivateStopTake();
+} else if (selectedTab === "limittab" && $('#MarketName').val() === defaultMarket) {
+    DisableActivateStopTake();
+}
+
 $(activateStop).click(function () {
     ActivateStop();
 });
