@@ -245,7 +245,13 @@ namespace Smart_Binance.Data.Migrations
 
                     b.Property<string>("DisplayType");
 
-                    b.Property<bool>("IsTrailing");
+                    b.Property<bool>("IsStopLoss");
+
+                    b.Property<bool>("IsTakeProfit");
+
+                    b.Property<bool>("IsTrailingStop");
+
+                    b.Property<bool>("IsTrailingTake");
 
                     b.Property<bool>("LimitPending");
 

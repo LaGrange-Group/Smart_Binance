@@ -33,6 +33,9 @@ namespace Smart_Binance.Models
         public bool LimitPending { get; set; } 
         public bool Success { get; set; }
         public string DisplayType { get; set; }
-        public bool IsTrailing { get; set; }
+        public bool IsTrailingTake { get; set; }
+        public bool IsTrailingStop { get; set; }
+        public bool IsStopLoss { get; set; }
+        public bool IsTakeProfit { get; set; }
     }
 }

@@ -145,7 +145,7 @@ namespace Smart_Binance.Actions.SmartTrade
             {
                 decimal trailingTakePerc = build.TrailingTakePercent < 0 ? build.TrailingTakePercent * -1m : build.TrailingTakePercent;
                 trade.StopLossPrice = decimal.Round(build.TakeProfitPrice - (build.TakeProfitPrice * (trailingTakePerc / 100)), priceDecimal);
-                trade.IsTrailing = true;
+                trade.IsTrailingTake = true;
                 TradeDB tradeDB = new TradeDB();
                 tradeDB.Update(trade);
                 return TrailingStopLoss(trade);
@@ -282,7 +282,7 @@ namespace Smart_Binance.Actions.SmartTrade
             {
                 decimal trailingTakePerc = build.TrailingTakePercent < 0 ? build.TrailingTakePercent * -1m : build.TrailingTakePercent;
                 trade.StopLossPrice = decimal.Round(build.TakeProfitPrice - (build.TakeProfitPrice * (trailingTakePerc / 100)), priceDecimal);
-                trade.IsTrailing = true;
+                trade.IsTrailingTake = true;
                 TradeDB tradeDB = new TradeDB();
                 tradeDB.Update(trade);
                 return TrailingStopLoss(trade);

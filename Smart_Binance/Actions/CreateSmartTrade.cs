@@ -46,6 +46,10 @@ namespace Smart_Binance.Actions
             trade.AmountDecimal = build.AmountDecimal;
             trade.BasePriceDecimal = build.BasePriceDecimal;
             trade.PriceDecimal = build.AssetPriceDecimal;
+            trade.IsStopLoss = build.StopLoss;
+            trade.IsTakeProfit = build.TakeProfit;
+            trade.IsTrailingStop = build.TrailingStopLoss;
+            trade.IsTrailingTake = build.TrailingTakeProfit;
             TradeDB tradeDB = new TradeDB();
             await tradeDB.Add(trade);
         }
@@ -73,7 +77,7 @@ namespace Smart_Binance.Actions
             var implementConditions = Task.Run(async () => {
                 if (!build.StopLoss && !build.TakeProfit)
                 {
-                    // Buy Only
+                    // Buy Only --------------------------------------------------------------------- Done
                     trade.DisplayType = "BOVC";
                     TradeDB tradeDB = new TradeDB();
                     await tradeDB.UpdateAsync(trade);
@@ -81,10 +85,12 @@ namespace Smart_Binance.Actions
                 else if (!build.StopLoss && build.TakeProfit && !build.TrailingTakeProfit)
                 {
                     // Take Profit
+                    // --------------------------------------------------------------------- Done
                     Sell sell = new Sell(build, api);
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
+                        trade.DisplayType = "TPVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         Scan scan = new Scan(build);
@@ -147,6 +153,7 @@ namespace Smart_Binance.Actions
                 {
                     // Stop Loss
                     // Trailing Stop Loss
+                    // --------------------------------------------------------------------------------------- Done
                     Sell sell = new Sell(build, api);
                     trade = await sell.LimitStopAsync(trade, trade.StopLossPrice);
                     if (trade.Success)
@@ -173,6 +180,7 @@ namespace Smart_Binance.Actions
                 {
                     // Stop Loss
                     // Take Profit
+                    // --------------------------------------------------------------------------------------- Done
                     Sell sell = new Sell(build, api);
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
