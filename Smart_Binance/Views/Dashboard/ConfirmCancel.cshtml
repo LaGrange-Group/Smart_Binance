@@ -2,6 +2,7 @@
     $("#acceptcanceltrade").click(function () {
         $.post("@Url.Action("CancelTrade","Dashboard")", { id: $("#cancelconfirmmodal").val()} ,function(){
             $("#cancelconfirmmodal").modal('hide');
+            RefreshTradesComponent();
         });
     });
 </script>

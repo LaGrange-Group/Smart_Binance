@@ -2,11 +2,9 @@
     $("#acceptselltrade").click(function () {
         $.post("@Url.Action("SellTrade","Dashboard")", { id: $("#sellconfirmmodal").val()} ,function(){
             $("#sellconfirmmodal").modal('hide');
+            RefreshTradesComponent();
         });
-        // Function to cancel and create sell
-        // Trade Id: $("#editconfirmmodal").val()
-        // Cancel order
-        // Change tab + market
+
     });
 </script>
 <div class="container" style="padding-top:300px; width:30%; border-radius:0.5em">

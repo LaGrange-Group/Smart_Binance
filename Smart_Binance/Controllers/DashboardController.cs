@@ -49,7 +49,7 @@ namespace Smart_Binance.Controllers
             await smartTrade.ElicitBuyOrSell();
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> CancelTrade(int id)
+        public async Task CancelTrade(int id)
         {
             Trade trade = db.Trades.Where(t => t.Id == id).Single();
             Cancel cancel = new Cancel();
@@ -59,10 +59,9 @@ namespace Smart_Binance.Controllers
                 db.Update(trade);
                 await db.SaveChangesAsync();
             }
-            return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> SellTrade(int id)
+        public async Task SellTrade(int id)
         {
             Trade trade = db.Trades.Where(t => t.Id == id).Single();
             Cancel cancel = new Cancel();
@@ -82,7 +81,6 @@ namespace Smart_Binance.Controllers
                     
                 }
             }
-            return RedirectToAction("Index");
         }
         public IActionResult ConfirmCancel()
         {
@@ -95,6 +93,10 @@ namespace Smart_Binance.Controllers
         public IActionResult ConfirmSell()
         {
             return PartialView();
+        }
+        public IActionResult UpdateTradesComponent()
+        {
+            return ViewComponent("SmartTradeVC");
         }
         public IActionResult GetMySellViewComponent(string marketPass)
         {

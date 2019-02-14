@@ -6,6 +6,7 @@ var limitContainer = $("#LimitContainer");  //quoteProcedureComponentContainer
 var sellContainer = $("#SellContainer");  //quoteProcedureComponentContainer
 var stopLossContainer = $("#StopLossContainer");  //quoteProcedureComponentContainer
 var takeProfitContainer = $("#TakeProfitContainer");  //quoteProcedureComponentContainer
+var tradesContainer = $("#SmartTradesContainer");  //quoteProcedureComponentContainer
 var baseDecimalAmount = 0;
 var priceDecimalAmount = 0;
 var assetDecimalAmount = 0;
@@ -134,6 +135,10 @@ function ResetStopTakeValues() {
 }
 
 // ---------------------------------- Utility Functions
+
+function RefreshTradesComponent() {
+    $.get("/Dashboard/UpdateTradesComponent", function (data) { tradesContainer.html(data); });
+}
 
 function DisableActivateStopTake() {
     $("#activatestop").attr("disabled", true);
