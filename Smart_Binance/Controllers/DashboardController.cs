@@ -64,21 +64,34 @@ namespace Smart_Binance.Controllers
         public async Task SellTrade(int id)
         {
             Trade trade = db.Trades.Where(t => t.Id == id).Single();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Customer customer = db.Customers.Include(c => c.API).Where(c => c.UserId == userId).Single();
+            API api = customer.API;
             Cancel cancel = new Cancel();
-            if (await cancel.TradeAsync(trade))
+            if (await cancel.TradeAsync(trade) && trade.DisplayType != "BO")
             {
                 trade.Status = false;
                 db.Update(trade);
                 await db.SaveChangesAsync();
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                Customer customer = db.Customers.Include(c => c.API ).Where(c => c.UserId == userId).Single();
-                API api = customer.API;
                 Sell sell = new Sell(api);
                 decimal sellPrice = await sell.MarketAsyncTrade(trade);
                 if (sellPrice != 0m)
                 {
                     //Success
                     
+                }
+            }
+            else if (trade.DisplayType == "BO")
+            {
+                trade.Status = false;
+                db.Update(trade);
+                await db.SaveChangesAsync();
+                Sell sell = new Sell(api);
+                decimal sellPrice = await sell.MarketAsyncTrade(trade);
+                if (sellPrice != 0m)
+                {
+                    //Success
+
                 }
             }
         }
