@@ -109,7 +109,7 @@ namespace Smart_Binance.Actions
                 {
                     // Take Profit
                     // Trailing Take Profit
-
+                    // --------------------------------------------------------------------- Done
                     int priceDecimal = BitConverter.GetBytes(decimal.GetBits(trade.TakeProfitPrice)[3])[2];
                     decimal tempTakeProfitPrice = decimal.Round(build.TakeProfitPrice * 2, priceDecimal);
                     Sell sell = new Sell(build, api);
@@ -211,10 +211,12 @@ namespace Smart_Binance.Actions
                     // Stop Loss
                     // Take Profit
                     // Trailing Stop Loss
+                    // 
                     Sell sell = new Sell(build, api);
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
+                        trade.DisplayType = "TPSLVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         var scanStop = Task.Run(async () => {
@@ -240,6 +242,7 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
+                        trade.DisplayType = "TPSLVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         var scanStop = Task.Run(async () => {
@@ -266,6 +269,7 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitAsync(trade, build.TakeProfitPrice);
                     if (trade.Success)
                     {
+                        trade.DisplayType = "TPSLVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         var scanStop = Task.Run(async () => {

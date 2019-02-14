@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-xs-4">
                         <div style="padding-top:3.1em">
-                            <span style="float:right;">SL&nbsp;@Model.Trade.StopLossPrice</span>
+                            <span style="float:right;">@if(Model.Trade.IsTrailingStop){<span>TSL</span>}else{<span>SL</span>}&nbsp;@Model.Trade.StopLossPrice</span>
                         </div>
                     </div>
                 </div>
@@ -197,7 +197,7 @@
             <div class="col-xs-3" style="padding:0px;height:100px;">
                 <div class="row">
                     <div class="col-xs-5" style="padding-top:1.4em;">
-                        <div style="float:left"><p style="float:left; padding-top:1.7em">@Model.Trade.TakeProfitPrice&nbsp;TP</p></div>
+                        <div style="float:left"><p style="float:left; padding-top:1.7em">@Model.Trade.TakeProfitPrice&nbsp;@if(Model.Trade.IsTrailingTake){<span>TTP</span>}else{<span>TP</span>}</p></div>
                     </div>
                     <div class="col-xs-4" style="padding:0px; padding-top:2.5em;">
                         <div style="float:right">
