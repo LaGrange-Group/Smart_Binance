@@ -25,6 +25,10 @@
     {
         @await Component.InvokeAsync("TPVC", new { id = trade.Id })
     }
+    else if (trade.DisplayType == "SLVC")
+    {
+        @await Component.InvokeAsync("SLVC", new { id = trade.Id })
+    }
     else
     {
         <div style="width:100%; height:150px">
