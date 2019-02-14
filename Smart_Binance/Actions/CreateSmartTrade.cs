@@ -116,6 +116,8 @@ namespace Smart_Binance.Actions
                     trade = await sell.LimitAsync(trade, tempTakeProfitPrice);
                     if (trade.Success)
                     {
+                        trade.TakeProfitPrice = build.TakeProfitPrice;
+                        trade.DisplayType = "TPVC";
                         TradeDB tradeDB = new TradeDB();
                         await tradeDB.UpdateAsync(trade);
                         Scan scan = new Scan(build, api);

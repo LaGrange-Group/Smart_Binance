@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-xs-4">
                         <div style="padding-top:3.1em">
-                            <span style="float:right;">TSL&nbsp;@Model.Trade.StopLossPrice</span>
+                            <span style="float:right;">@if (Model.Trade.IsTrailingTake){<span>TTP</span>}else {<span>TSL</span>}&nbsp;@Model.Trade.StopLossPrice</span>
                         </div>
                     </div>
                 </div>
