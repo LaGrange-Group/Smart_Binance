@@ -24,6 +24,7 @@ namespace Smart_Binance.Actions.SmartTrade
                     CalculateAmountDecimal amountDecimal = new CalculateAmountDecimal();
                     viewModel.BaseDecimalAmount = viewModel.BaseType == "USDT" || viewModel.BaseType == "TUSD" || viewModel.BaseType == "USDC" || viewModel.BaseType == "PAX" ? 2 : await amountDecimal.OrderBookDecimal(viewModel.BaseType + "USDT");
                     viewModel.BaseTotal = decimal.Round(baseBalance.Data.Balances.Where(b => b.Asset == viewModel.BaseType).Select(b => b.Free).Single(), viewModel.BaseDecimalAmount);
+                    viewModel.BaseTotal = decimal.Round(viewModel.BaseTotal - (viewModel.BaseTotal * 0.01m), viewModel.BaseDecimalAmount);
                     viewModel.BaseAmount = decimal.Round(viewModel.BaseTotal * amountPercent, viewModel.BaseDecimalAmount);
                     var currentPrice = await client.Get24HPriceAsync(market);
                     if (currentPrice.Success)

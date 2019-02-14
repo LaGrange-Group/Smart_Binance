@@ -293,6 +293,7 @@ namespace Smart_Binance.Actions
                                 else if (orderStatus.Data.Status == OrderStatus.Canceled)
                                 {
                                     trade.Success = false;
+                                    trade.Status = false;
                                     await tradeDB.UpdateAsync(trade);
                                     return;
                                 }
